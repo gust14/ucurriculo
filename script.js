@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadBtn = document.getElementById('download-btn');
     const templateCards = document.querySelectorAll('.template-card');
     const previewContent = document.getElementById('resume-preview-content');
+    // --- Modal Elements ---
+    const successModal = document.getElementById('success-modal');
+    const closeModalBtn = document.getElementById('close-modal');
     
     // --- State Management ---
     let currentStep = 1;
@@ -137,132 +140,94 @@ document.addEventListener('DOMContentLoaded', () => {
             templateCards.forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
             const templateName = card.dataset.template;
-            renderPreview(templateName);
+            renderPreview(templateName); // A função assíncrona
             downloadBtn.disabled = false;
             downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         });
     });
     
-    function renderPreview(template) {
-        let html = '';
-        const { personal, experience, education, skills } = resumeData;
+    async function renderPreview(template) {
+        try {
+            // Busca o conteúdo do arquivo de template
+            const response = await fetch(`templates/${template}.html`);
+            if (!response.ok) {
+                throw new Error(`Não foi possível carregar o template: ${template}.html`);
+            }
+            let templateHtml = await response.text();
 
-        const skillsHtml = skills.map(skill => `<span class="bg-gray-200 text-gray-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">${skill}</span>`).join('');
+            const { personal, experience, education, skills } = resumeData;
 
-        const experienceHtml = experience.map(exp => `
-            <div class="mb-4">
-                <h4 class="text-lg font-bold">${exp.title || ''}</h4>
-                <p class="text-sm text-cyan-700 font-semibold">${exp.company || ''}</p>
-                <p class="text-sm text-gray-600 mt-1">${exp.description || ''}</p>
-            </div>
-        `).join('');
+            // Gera os blocos de HTML para seções repetidas
+            const skillsHtml = skills.map(skill => `<span class="bg-gray-200 text-gray-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">${skill}</span>`).join('');
+            const experienceHtml = experience.map(exp => `
+                <div class="mb-4">
+                    <h4 class="text-lg font-bold">${exp.title || ''}</h4>
+                    <p class="text-sm text-cyan-700 font-semibold">${exp.company || ''}</p>
+                    <p class="text-sm text-gray-600 mt-1">${exp.description || ''}</p>
+                </div>`).join('');
+            const educationHtml = education.map(edu => `
+                <div class="mb-2">
+                    <h4 class="text-md font-bold">${edu.course || ''}</h4>
+                    <p class="text-sm text-gray-700">${edu.institution || ''}</p>
+                    <p class="text-xs text-gray-500">${edu.period || ''}</p>
+                </div>`).join('');
+            
+            // Substitui os placeholders no template com os dados do usuário
+            templateHtml = templateHtml
+                .replace(/{{fullName}}/g, personal.fullName || 'Seu Nome Aqui')
+                .replace(/{{email}}/g, personal.email || '')
+                .replace(/{{phone}}/g, personal.phone || '')
+                .replace(/{{linkedin}}/g, personal.linkedin || '')
+                .replace(/{{summary}}/g, personal.summary || '')
+                .replace(/{{skillsHtml}}/g, skillsHtml)
+                .replace(/{{experienceHtml}}/g, experienceHtml)
+                .replace(/{{educationHtml}}/g, educationHtml);
 
-        const educationHtml = education.map(edu => `
-            <div class="mb-2">
-                <h4 class="text-md font-bold">${edu.course || ''}</h4>
-                <p class="text-sm text-gray-700">${edu.institution || ''}</p>
-                <p class="text-xs text-gray-500">${edu.period || ''}</p>
-            </div>
-        `).join('');
-
-        switch(template) {
-            case 'moderno':
-                html = `
-                <div class="resume-preview p-8 grid grid-cols-3 gap-8">
-                    <div class="col-span-1 border-r pr-8 border-gray-200">
-                         <h1 class="text-3xl font-extrabold mb-1">${personal.fullName || 'Seu Nome Aqui'}</h1>
-                         <div class="space-y-4 mt-8">
-                            <div>
-                                <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">CONTATO</h3>
-                                <p class="text-sm">${personal.email || ''}</p>
-                                <p class="text-sm">${personal.phone || ''}</p>
-                                <p class="text-sm">${personal.linkedin || ''}</p>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">COMPETÊNCIAS</h3>
-                                <div class="flex flex-wrap gap-2 mt-2">${skillsHtml}</div>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">FORMAÇÃO</h3>
-                                ${educationHtml}
-                            </div>
-                         </div>
-                    </div>
-                    <div class="col-span-2">
-                        <div>
-                            <h3 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-2">RESUMO</h3>
-                            <p class="text-gray-600 leading-relaxed">${personal.summary || ''}</p>
-                        </div>
-                         <div class="mt-6">
-                            <h3 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-2">EXPERIÊNCIA</h3>
-                            ${experienceHtml}
-                        </div>
-                    </div>
-                </div>
-                `;
-                break;
-            case 'criativo':
-                 html = `
-                <div class="resume-preview p-8">
-                    <div class="text-center pb-6 border-b-4 border-cyan-400">
-                        <h1 class="text-5xl font-extrabold">${personal.fullName || 'Seu Nome Aqui'}</h1>
-                        <p class="mt-2">${personal.email} | ${personal.phone} | ${personal.linkedin}</p>
-                    </div>
-                    <div class="mt-6">
-                        <h3 class="text-lg font-bold text-cyan-600 uppercase tracking-widest mb-2">Resumo</h3>
-                        <p class="text-gray-600 leading-relaxed">${personal.summary}</p>
-                    </div>
-                    <div class="mt-6 grid grid-cols-3 gap-8">
-                         <div class="col-span-2">
-                            <h3 class="text-lg font-bold text-cyan-600 uppercase tracking-widest mb-2">Experiência</h3>
-                            ${experienceHtml}
-                        </div>
-                        <div class="col-span-1">
-                            <h3 class="text-lg font-bold text-cyan-600 uppercase tracking-widest mb-2">Competências</h3>
-                            <div class="flex flex-wrap gap-2">${skillsHtml}</div>
-                            <h3 class="text-lg font-bold text-cyan-600 uppercase tracking-widest mt-6 mb-2">Formação</h3>
-                            ${educationHtml}
-                        </div>
-                    </div>
-                </div>`;
-                break;
-            case 'minimalista':
-                html = `
-                <div class="resume-preview p-8">
-                    <h1 class="text-4xl font-bold text-center">${personal.fullName || 'Seu Nome Aqui'}</h1>
-                    <p class="text-center text-sm text-gray-500 mb-6">${personal.email} | ${personal.phone} | ${personal.linkedin}</p>
-                    
-                    <h2 class="text-xl font-bold border-b-2 border-gray-300 pb-1 mb-3">Resumo</h2>
-                    <p class="text-gray-700 mb-6">${personal.summary}</p>
-
-                    <h2 class="text-xl font-bold border-b-2 border-gray-300 pb-1 mb-3">Experiência</h2>
-                    ${experienceHtml}
-                    
-                    <h2 class="text-xl font-bold border-b-2 border-gray-300 pb-1 mb-3 mt-6">Formação</h2>
-                    ${educationHtml}
-
-                    <h2 class="text-xl font-bold border-b-2 border-gray-300 pb-1 mb-3 mt-6">Competências</h2>
-                    <div class="flex flex-wrap gap-2">${skillsHtml}</div>
-                </div>
-                `;
-                break;
+            previewContent.innerHTML = templateHtml;
+        } catch (error) {
+            console.error(error);
+            previewContent.innerHTML = `<p class="text-red-400">Erro ao carregar o preview. Tente novamente.</p>`;
         }
-        previewContent.innerHTML = html;
     }
 
     // --- PDF Download ---
-    downloadBtn.addEventListener('click', () => {
+  downloadBtn.addEventListener('click', () => {
         if (downloadBtn.disabled) return;
         const content = previewContent.querySelector('.resume-preview');
-        const userName = (resumeData.personal.fullName || 'Usuario').replace(/\s+/g, '-');
+        // Garante que o nome do arquivo seja válido
+        const userName = (resumeData.personal.fullName || 'Usuario').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        
         const options = {
             margin: 0,
-            filename: `${userName}-CURRICULO.pdf`,
+            filename: `${userName}-curriculo.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true },
             jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
         };
-        html2pdf().from(content).set(options).save();
+
+        // Usa 'then()' para mostrar o modal após o início do download
+        html2pdf().from(content).set(options).save().then(() => {
+            showSuccessModal();
+        });
+    });
+
+    function showSuccessModal() {
+        // Recria os ícones do Lucide dentro do modal, se necessário
+        lucide.createIcons(); 
+        successModal.classList.remove('hidden');
+    }
+
+    function hideSuccessModal() {
+        successModal.classList.add('hidden');
+    }
+
+    // Event listeners para fechar o modal
+    closeModalBtn.addEventListener('click', hideSuccessModal);
+    successModal.addEventListener('click', (event) => {
+        // Fecha se clicar no overlay (fundo)
+        if (event.target === successModal) {
+            hideSuccessModal();
+        }
     });
 
 
