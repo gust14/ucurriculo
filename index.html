@@ -4,19 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ucurriculo - Crie seu Currículo Incrível</title>
-
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%230FA7E2'></rect><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='70' font-weight='bold' fill='white' font-family='sans-serif'>U</text></svg>">
-
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide-icons@latest/dist/lucide.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="text-white">
@@ -64,8 +58,7 @@
                  <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">2. Experiência Profissional</h2>
-                        <div id="experience-fields" class="space-y-4">
-                            </div>
+                        <div id="experience-fields" class="space-y-4"></div>
                          <button id="add-experience" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold">+ Adicionar outra experiência</button>
                     </div>
                     <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
@@ -82,8 +75,7 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">3. Formação Acadêmica</h2>
-                        <div id="education-fields" class="space-y-4">
-                           </div>
+                        <div id="education-fields" class="space-y-4"></div>
                         <button id="add-education" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold">+ Adicionar outra formação</button>
                     </div>
                      <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
@@ -126,13 +118,11 @@
                 <span class="bg-[#0FA7E2] text-white rounded-lg px-3 py-1 mr-1">U</span><span class="beatache-gradient-text">curriculo</span>
             </h1>
         </div>
-
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Escolha seu Modelo Favorito</h1>
             <p class="text-lg text-gray-400">Clique em um modelo para visualizar com seus dados. Gostou? É só baixar!</p>
         </div>
-
-        <div class="flex justify-center gap-8 mb-8">
+        <div class="flex flex-wrap justify-center gap-8 mb-8">
             <div class="template-card cursor-pointer bg-gray-800 p-2 rounded-lg" data-template="moderno">
                 <img src="https://placehold.co/200x282/1f2937/ffffff?text=Moderno" alt="Template Moderno" class="rounded-md">
                 <p class="text-center font-bold mt-2">Moderno</p>
@@ -146,7 +136,6 @@
                  <p class="text-center font-bold mt-2">Minimalista</p>
             </div>
         </div>
-
         <div id="resume-preview-container" class="w-full max-w-4xl mx-auto">
              <div class="flex justify-end mb-4">
                 <button id="edit-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors mr-2">
