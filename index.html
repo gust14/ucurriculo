@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucurriculo - Transforme seu LinkedIn em Currículo</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-icons@latest/dist/lucide.js"></script>
+    
+    <!-- html2pdf.js for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" xintegrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        /* Custom styles for the BeaTache theme and better UX */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+        }
+        .beatache-gradient-text {
+            background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .beatache-gradient-bg {
+             background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+        }
+        .beatache-button {
+            background: linear-gradient(90deg, #14b8a6, #0ea5e9);
+            transition: all 0.3s ease-in-out;
+        }
+        .beatache-button:hover {
+            box-shadow: 0 0 20px #2dd4bf80, 0 0 20px #38bdf880;
+            transform: translateY(-2px);
+        }
+        .benefit-card {
+            background-color: #1f2937; /* bg-gray-800 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #374151; /* bg-gray-700 */
+        }
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px -10px #00000080;
+        }
+        /* Scrollbar styles for resume preview */
+        #resume-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        #resume-container::-webkit-scrollbar-track {
+            background: #1f2937; /* bg-gray-800 */
+        }
+        #resume-container::-webkit-scrollbar-thumb {
+            background-color: #38bdf8; /* a nice blue */
+            border-radius: 10px;
+            border: 2px solid #1f2937; /* bg-gray-800 */
+        }
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- Landing Page Section -->
+    <div id="landing-page" class="min-h-screen flex flex-col items-center justify-center p-4">
+        <header class="text-center mb-10">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4">
+                Seu LinkedIn, um <span class="beatache-gradient-text">Currículo Incrível</span>.
+            </h1>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                Cole o link do seu perfil no LinkedIn e veja a mágica acontecer. Transformamos seus dados em um currículo profissional e com design de alto impacto em segundos.
+            </p>
+        </header>
+
+        <main class="w-full max-w-2xl mb-16">
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input id="linkedin-url" type="url" placeholder="https://www.linkedin.com/in/seu-perfil" class="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-lg focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 outline-none transition-all duration-300">
+                <button id="generate-btn" class="beatache-button text-white font-bold px-8 py-4 rounded-lg whitespace-nowrap">
+                    Gerar Currículo
+                </button>
+            </div>
+            <p id="error-message" class="text-red-400 text-sm mt-2 h-5 text-center sm:text-left"></p>
+        </main>
+
+        <footer class="w-full max-w-5xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <!-- Card 1: Design -->
+                <div class="benefit-card rounded-xl p-8">
+                    <div class="flex justify-center mb-4">
+                        <div class="p-3 rounded-full beatache-gradient-bg">
+                            <i data-lucide="gem" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Design Premium</h3>
+                    <p class="text-gray-400">
+                        Templates criados por designers de UX/UI para garantir que sua primeira impressão seja inesquecível.
+                    </p>
+                </div>
+                <!-- Card 2: Agilidade -->
+                <div class="benefit-card rounded-xl p-8">
+                    <div class="flex justify-center mb-4">
+                       <div class="p-3 rounded-full beatache-gradient-bg">
+                            <i data-lucide="zap" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Rápido e Fácil</h3>
+                    <p class="text-gray-400">
+                        Chega de perder horas formatando. Um clique e seu currículo está pronto para impressionar.
+                    </p>
+                </div>
+                <!-- Card 3: PDF -->
+                <div class="benefit-card rounded-xl p-8">
+                    <div class="flex justify-center mb-4">
+                        <div class="p-3 rounded-full beatache-gradient-bg">
+                            <i data-lucide="download-cloud" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Exporte para PDF</h3>
+                    <p class="text-gray-400">
+                        Gostou do resultado? Baixe seu novo currículo em formato PDF com qualidade profissional.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Resume Preview Section (Initially Hidden) -->
+    <div id="resume-preview" class="hidden min-h-screen w-full flex-col items-center justify-center p-4 bg-gray-900">
+        <div class="w-full max-w-5xl mb-6 flex justify-between items-center">
+            <h2 class="text-2xl font-bold beatache-gradient-text">Pré-visualização do seu Currículo</h2>
+            <div>
+                 <button id="back-btn" class="bg-gray-700 hover:bg-gray-600 text-white font-bold px-6 py-3 rounded-lg transition-colors mr-2">
+                    Voltar
+                </button>
+                <button id="download-btn" class="beatache-button text-white font-bold px-6 py-3 rounded-lg">
+                    <i data-lucide="download" class="inline-block w-5 h-5 mr-2"></i>
+                    Baixar PDF
+                </button>
+            </div>
+        </div>
+        
+        <!-- The actual resume content to be converted to PDF -->
+        <div id="resume-container" class="w-full max-w-5xl h-[80vh] overflow-y-auto p-2 bg-gray-800 rounded-lg">
+            <div id="resume-content" class="bg-white text-gray-800 p-12 shadow-2xl">
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <!-- Left Column -->
+                    <div class="md:col-span-1 border-r-2 border-gray-100 pr-8">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                             alt="Foto de Perfil" class="rounded-full w-40 h-40 mx-auto mb-8 object-cover border-4 border-gray-200 shadow-md">
+                        <div class="space-y-6">
+                           <div>
+                                <h3 class="text-lg font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-3">CONTATO</h3>
+                                <p class="text-sm">gustavo.solf@email.com</p>
+                                <p class="text-sm">(11) 99999-8888</p>
+                                <p class="text-sm">São Paulo, Brasil</p>
+                                <p class="text-sm">linkedin.com/in/gustavo-solf</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-3">SKILLS</h3>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>UX/UI Design</li>
+                                    <li>Figma & Adobe XD</li>
+                                    <li>Design Thinking</li>
+                                    <li>HTML5 & CSS3</li>
+                                    <li>JavaScript (React)</li>
+                                    <li>Gestão de Projetos</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-3">FORMAÇÃO</h3>
+                                <p class="font-semibold text-sm">Design Digital</p>
+                                <p class="text-xs text-gray-600">Universidade Anhembi Morumbi</p>
+                                <p class="text-xs text-gray-600">2018 - 2022</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="md:col-span-2">
+                        <h1 class="text-5xl font-extrabold text-gray-800">Gustavo Solf</h1>
+                        <h2 class="text-xl font-medium text-cyan-700 mb-8">UX/UI Designer & Desenvolvedor Front-End</h2>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">RESUMO</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Profissional de UX/UI com mais de 5 anos de experiência na criação de interfaces intuitivas e centradas no usuário para aplicações web e mobile. Apaixonado por transformar problemas complexos em soluções de design elegantes e funcionais, com sólida experiência em todo o processo, desde a pesquisa e ideação até o protótipo e a entrega final para o desenvolvimento.
+                            </p>
+                        </div>
+
+                        <div class="mt-8">
+                            <h3 class="text-2xl font-bold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">EXPERIÊNCIA</h3>
+                            <div class="mb-6">
+                                <h4 class="text-lg font-semibold">UX/UI Designer Sênior</h4>
+                                <p class="text-sm text-gray-500 mb-1">Tech Solutions Inc. | 2021 - Presente</p>
+                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+                                    <li>Liderou o redesenho da plataforma principal, resultando em um aumento de 30% na satisfação do usuário.</li>
+                                    <li>Colaborou com equipes de produto e engenharia para definir requisitos e criar wireframes e protótipos interativos.</li>
+                                    <li>Conduziu testes de usabilidade e iterou designs com base no feedback dos usuários.</li>
+                                </ul>
+                            </div>
+                             <div class="mb-6">
+                                <h4 class="text-lg font-semibold">Product Designer</h4>
+                                <p class="text-sm text-gray-500 mb-1">Innovate Co. | 2019 - 2021</p>
+                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+                                    <li>Desenvolveu o design system da empresa, padronizando componentes e acelerando o desenvolvimento.</li>
+                                    <li>Projetou interfaces para um aplicativo mobile de e-commerce, focando na otimização da jornada de compra.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // DOM Elements
+        const landingPage = document.getElementById('landing-page');
+        const resumePreview = document.getElementById('resume-preview');
+        const generateBtn = document.getElementById('generate-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const backBtn = document.getElementById('back-btn');
+        const linkedinUrlInput = document.getElementById('linkedin-url');
+        const resumeContent = document.getElementById('resume-content');
+        const errorMessage = document.getElementById('error-message');
+        
+        // --- Event Listeners ---
+        
+        // Event listener for the "Gerar Currículo" button
+        generateBtn.addEventListener('click', () => {
+            const url = linkedinUrlInput.value;
+            errorMessage.textContent = ''; // Clear previous message
+            
+            // Basic validation: check if the input is not empty
+            if (!url.trim()) {
+                errorMessage.textContent = 'Por favor, insira o link do seu perfil no LinkedIn.';
+                return;
+            }
+            
+            // Simulate processing and switch views
+            landingPage.classList.add('hidden');
+            resumePreview.classList.add('flex');
+            resumePreview.classList.remove('hidden');
+        });
+        
+        // Event listener for the "Voltar" button
+        backBtn.addEventListener('click', () => {
+            landingPage.classList.remove('hidden');
+            resumePreview.classList.remove('flex');
+            resumePreview.classList.add('hidden');
+        });
+
+        // Event listener for the "Baixar PDF" button
+        downloadBtn.addEventListener('click', () => {
+            // Options for html2pdf
+            const options = {
+                margin:       0,
+                filename:     'Curriculo.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            // Use html2pdf to generate the PDF from the resume-content div
+            html2pdf().from(resumeContent).set(options).save();
+        });
+
+    </script>
+</body>
+</html>
