@@ -1,0 +1,31 @@
+<div class="resume-preview p-8 grid grid-cols-3 gap-8">
+    <div class="col-span-1 border-r pr-8 border-gray-200">
+         <h1 class="text-3xl font-extrabold mb-1">{{fullName}}</h1>
+         <div class="space-y-4 mt-8">
+            <div>
+                <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">CONTATO</h3>
+                <p class="text-sm">{{email}}</p>
+                <p class="text-sm">{{phone}}</p>
+                <p class="text-sm">{{linkedin}}</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">COMPETÊNCIAS</h3>
+                <div class="flex flex-wrap gap-2 mt-2">{{skillsHtml}}</div>
+            </div>
+            <div>
+                <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">FORMAÇÃO</h3>
+                {{educationHtml}}
+            </div>
+         </div>
+    </div>
+    <div class="col-span-2">
+        <div>
+            <h3 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-2">RESUMO</h3>
+            <p class="text-gray-600 leading-relaxed">{{summary}}</p>
+        </div>
+         <div class="mt-6">
+            <h3 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-2">EXPERIÊNCIA</h3>
+            {{experienceHtml}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="resume-preview p-0">
+    <div class="p-8 bg-gray-800 text-white text-center">
+        <h1 class="text-5xl font-extrabold tracking-wider">{{fullName}}</h1>
+        <p class="mt-4 text-lg text-gray-300">{{email}} &bull; {{phone}} &bull; {{linkedin}}</p>
+    </div>
+
+    <div class="p-8 grid grid-cols-3 gap-8">
+        <div class="col-span-2">
+            <section class="mb-8">
+                <h2 class="text-xl font-bold text-cyan-600 uppercase tracking-widest mb-3">Resumo Profissional</h2>
+                <p class="text-gray-600 leading-relaxed">{{summary}}</p>
+            </section>
+            
+            <section>
+                <h2 class="text-xl font-bold text-cyan-600 uppercase tracking-widest mb-3">Experiência</h2>
+                {{experienceHtml}}
+            </section>
+        </div>
+        
+        <div class="col-span-1">
+            <section class="mb-6">
+                <h3 class="text-lg font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-3">Competências</h3>
+                <div class="flex flex-wrap gap-2">{{skillsHtml}}</div>
+            </section>
+            
+            <section>
+                <h3 class="text-lg font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-3">Formação</h3>
+                {{educationHtml}}
+            </section>
+        </div>
+    </div>
+</div>
