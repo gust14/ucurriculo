@@ -1,0 +1,44 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #111827; /* bg-gray-900 */
+}
+.beatache-gradient-text {
+    background: linear-gradient(90deg, #2dd4bf, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.beatache-button {
+    background: linear-gradient(90deg, #14b8a6, #0ea5e9);
+    transition: all 0.3s ease-in-out;
+}
+.beatache-button:hover {
+    box-shadow: 0 0 20px #2dd4bf80, 0 0 20px #38bdf880;
+    transform: translateY(-2px);
+}
+.form-step {
+    display: none;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+.form-step.active {
+    display: block;
+    opacity: 1;
+}
+.progress-bar-fill {
+    transition: width 0.5s ease-in-out;
+}
+.template-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+.template-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+.template-card.selected {
+    border-color: #2dd4bf;
+    box-shadow: 0 0 15px #2dd4bf80;
+}
+/* Custom styles for resume templates */
+.resume-preview { background-color: white; color: #1f2937; }
+.resume-preview h1, .resume-preview h2, .resume-preview h3, .resume-preview h4 { font-family: 'Inter', sans-serif; }
