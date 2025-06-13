@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ucurriculo - Transforme seu LinkedIn em Currículo</title>
+    <title>Ucurriculo - Crie seu Currículo Incrível</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,7 +20,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" xintegrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
-        /* Custom styles for the BeaTache theme and better UX */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #111827; /* bg-gray-900 */
@@ -30,9 +29,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .beatache-gradient-bg {
-             background: linear-gradient(90deg, #2dd4bf, #38bdf8);
-        }
         .beatache-button {
             background: linear-gradient(90deg, #14b8a6, #0ea5e9);
             transition: all 0.3s ease-in-out;
@@ -41,238 +37,452 @@
             box-shadow: 0 0 20px #2dd4bf80, 0 0 20px #38bdf880;
             transform: translateY(-2px);
         }
-        .benefit-card {
-            background-color: #1f2937; /* bg-gray-800 */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #374151; /* bg-gray-700 */
+        .form-step {
+            display: none;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
         }
-        .benefit-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px -10px #00000080;
+        .form-step.active {
+            display: block;
+            opacity: 1;
         }
-        /* Scrollbar styles for resume preview */
-        #resume-container::-webkit-scrollbar {
-            width: 8px;
+        .progress-bar-fill {
+            transition: width 0.5s ease-in-out;
         }
-        #resume-container::-webkit-scrollbar-track {
-            background: #1f2937; /* bg-gray-800 */
+        .template-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
-        #resume-container::-webkit-scrollbar-thumb {
-            background-color: #38bdf8; /* a nice blue */
-            border-radius: 10px;
-            border: 2px solid #1f2937; /* bg-gray-800 */
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
+        .template-card.selected {
+            border-color: #2dd4bf;
+            box-shadow: 0 0 15px #2dd4bf80;
+        }
+        /* Custom styles for resume templates */
+        .resume-preview { background-color: white; color: #1f2937; }
+        .resume-preview h1, .resume-preview h2, .resume-preview h3, .resume-preview h4 { font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body class="text-white">
 
-    <!-- Landing Page Section -->
-    <div id="landing-page" class="min-h-screen flex flex-col items-center justify-center p-4">
-        <header class="text-center mb-10">
-            <h1 class="text-5xl md:text-6xl font-extrabold mb-4">
-                Seu LinkedIn, um <span class="beatache-gradient-text">Currículo Incrível</span>.
-            </h1>
-            <p class="text-lg text-gray-400 max-w-2xl mx-auto">
-                Cole o link do seu perfil no LinkedIn e veja a mágica acontecer. Transformamos seus dados em um currículo profissional e com design de alto impacto em segundos.
-            </p>
-        </header>
-
-        <main class="w-full max-w-2xl mb-16">
-            <div class="flex flex-col sm:flex-row gap-3">
-                <input id="linkedin-url" type="url" placeholder="https://www.linkedin.com/in/seu-perfil" class="w-full px-5 py-4 bg-gray-800 border border-gray-700 rounded-lg focus:ring-4 focus:ring-cyan-500/50 focus:border-cyan-400 outline-none transition-all duration-300">
-                <button id="generate-btn" class="beatache-button text-white font-bold px-8 py-4 rounded-lg whitespace-nowrap">
-                    Gerar Currículo
-                </button>
-            </div>
-            <p id="error-message" class="text-red-400 text-sm mt-2 h-5 text-center sm:text-left"></p>
-        </main>
-
-        <footer class="w-full max-w-5xl">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <!-- Card 1: Design -->
-                <div class="benefit-card rounded-xl p-8">
-                    <div class="flex justify-center mb-4">
-                        <div class="p-3 rounded-full beatache-gradient-bg">
-                            <i data-lucide="gem" class="w-8 h-8 text-white"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">Design Premium</h3>
-                    <p class="text-gray-400">
-                        Templates criados por designers de UX/UI para garantir que sua primeira impressão seja inesquecível.
-                    </p>
-                </div>
-                <!-- Card 2: Agilidade -->
-                <div class="benefit-card rounded-xl p-8">
-                    <div class="flex justify-center mb-4">
-                       <div class="p-3 rounded-full beatache-gradient-bg">
-                            <i data-lucide="zap" class="w-8 h-8 text-white"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">Rápido e Fácil</h3>
-                    <p class="text-gray-400">
-                        Chega de perder horas formatando. Um clique e seu currículo está pronto para impressionar.
-                    </p>
-                </div>
-                <!-- Card 3: PDF -->
-                <div class="benefit-card rounded-xl p-8">
-                    <div class="flex justify-center mb-4">
-                        <div class="p-3 rounded-full beatache-gradient-bg">
-                            <i data-lucide="download-cloud" class="w-8 h-8 text-white"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">Exporte para PDF</h3>
-                    <p class="text-gray-400">
-                        Gostou do resultado? Baixe seu novo currículo em formato PDF com qualidade profissional.
-                    </p>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Resume Preview Section (Initially Hidden) -->
-    <div id="resume-preview" class="hidden min-h-screen w-full flex-col items-center justify-center p-4 bg-gray-900">
-        <div class="w-full max-w-5xl mb-6 flex justify-between items-center">
-            <h2 class="text-2xl font-bold beatache-gradient-text">Pré-visualização do seu Currículo</h2>
-            <div>
-                 <button id="back-btn" class="bg-gray-700 hover:bg-gray-600 text-white font-bold px-6 py-3 rounded-lg transition-colors mr-2">
-                    Voltar
-                </button>
-                <button id="download-btn" class="beatache-button text-white font-bold px-6 py-3 rounded-lg">
-                    <i data-lucide="download" class="inline-block w-5 h-5 mr-2"></i>
-                    Baixar PDF
-                </button>
-            </div>
+    <!-- Form Wizard Section -->
+    <div id="form-wizard" class="min-h-screen container mx-auto p-4 flex flex-col justify-center">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Crie o Currículo Perfeito</h1>
+            <p class="text-lg text-gray-400">Siga nossa jornada guiada para não esquecer de nada.</p>
         </div>
-        
-        <!-- The actual resume content to be converted to PDF -->
-        <div id="resume-container" class="w-full max-w-5xl h-[80vh] overflow-y-auto p-2 bg-gray-800 rounded-lg">
-            <div id="resume-content" class="bg-white text-gray-800 p-12 shadow-2xl">
-                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <!-- Left Column -->
-                    <div class="md:col-span-1 border-r-2 border-gray-100 pr-8">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                             alt="Foto de Perfil" class="rounded-full w-40 h-40 mx-auto mb-8 object-cover border-4 border-gray-200 shadow-md">
-                        <div class="space-y-6">
-                           <div>
-                                <h3 class="text-lg font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-3">CONTATO</h3>
-                                <p class="text-sm">gustavo.solf@email.com</p>
-                                <p class="text-sm">(11) 99999-8888</p>
-                                <p class="text-sm">São Paulo, Brasil</p>
-                                <p class="text-sm">linkedin.com/in/gustavo-solf</p>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-3">SKILLS</h3>
-                                <ul class="list-disc list-inside text-sm space-y-1">
-                                    <li>UX/UI Design</li>
-                                    <li>Figma & Adobe XD</li>
-                                    <li>Design Thinking</li>
-                                    <li>HTML5 & CSS3</li>
-                                    <li>JavaScript (React)</li>
-                                    <li>Gestão de Projetos</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-3">FORMAÇÃO</h3>
-                                <p class="font-semibold text-sm">Design Digital</p>
-                                <p class="text-xs text-gray-600">Universidade Anhembi Morumbi</p>
-                                <p class="text-xs text-gray-600">2018 - 2022</p>
-                            </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full max-w-3xl mx-auto bg-gray-700 rounded-full h-2.5 mb-8">
+            <div id="progress-bar" class="beatache-button h-2.5 rounded-full progress-bar-fill" style="width: 25%"></div>
+        </div>
+
+        <div class="w-full max-w-3xl mx-auto bg-gray-800 p-8 rounded-2xl shadow-2xl">
+            <!-- Step 1: Personal Info -->
+            <div id="step-1" class="form-step active">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">1. Informações Pessoais</h2>
+                        <div class="space-y-4">
+                            <input type="text" id="fullName" placeholder="Nome Completo" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
+                            <input type="email" id="email" placeholder="Email" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
+                            <input type="tel" id="phone" placeholder="Telefone" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
+                            <input type="text" id="linkedin" placeholder="Link do seu LinkedIn (opcional)" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
+                             <textarea id="summary" placeholder="Um breve resumo sobre você..." rows="4" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
                         </div>
                     </div>
-
-                    <!-- Right Column -->
-                    <div class="md:col-span-2">
-                        <h1 class="text-5xl font-extrabold text-gray-800">Gustavo Solf</h1>
-                        <h2 class="text-xl font-medium text-cyan-700 mb-8">UX/UI Designer & Desenvolvedor Front-End</h2>
-                        
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">RESUMO</h3>
-                            <p class="text-gray-600 leading-relaxed">
-                                Profissional de UX/UI com mais de 5 anos de experiência na criação de interfaces intuitivas e centradas no usuário para aplicações web e mobile. Apaixonado por transformar problemas complexos em soluções de design elegantes e funcionais, com sólida experiência em todo o processo, desde a pesquisa e ideação até o protótipo e a entrega final para o desenvolvimento.
-                            </p>
+                    <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
+                        <div class="flex items-center mb-2">
+                           <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
+                           <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
                         </div>
-
-                        <div class="mt-8">
-                            <h3 class="text-2xl font-bold text-gray-700 border-b-2 border-gray-200 pb-2 mb-4">EXPERIÊNCIA</h3>
-                            <div class="mb-6">
-                                <h4 class="text-lg font-semibold">UX/UI Designer Sênior</h4>
-                                <p class="text-sm text-gray-500 mb-1">Tech Solutions Inc. | 2021 - Presente</p>
-                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
-                                    <li>Liderou o redesenho da plataforma principal, resultando em um aumento de 30% na satisfação do usuário.</li>
-                                    <li>Colaborou com equipes de produto e engenharia para definir requisitos e criar wireframes e protótipos interativos.</li>
-                                    <li>Conduziu testes de usabilidade e iterou designs com base no feedback dos usuários.</li>
-                                </ul>
-                            </div>
-                             <div class="mb-6">
-                                <h4 class="text-lg font-semibold">Product Designer</h4>
-                                <p class="text-sm text-gray-500 mb-1">Innovate Co. | 2019 - 2021</p>
-                                <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
-                                    <li>Desenvolveu o design system da empresa, padronizando componentes e acelerando o desenvolvimento.</li>
-                                    <li>Projetou interfaces para um aplicativo mobile de e-commerce, focando na otimização da jornada de compra.</li>
-                                </ul>
-                            </div>
-                        </div>
+                        <p class="text-gray-300">Seu resumo é o "trailer" da sua carreira. Em 2-3 frases, destaque sua principal competência e seu objetivo profissional. Ex: "Designer de UX com 5 anos de experiência em apps mobile, buscando criar interfaces intuitivas na área de fintech."</p>
                     </div>
-                 </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Experience -->
+            <div id="step-2" class="form-step">
+                <!-- Content will be added dynamically -->
+                 <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">2. Experiência Profissional</h2>
+                        <div id="experience-fields" class="space-y-4">
+                            <!-- JS will populate this -->
+                        </div>
+                         <button id="add-experience" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold">+ Adicionar outra experiência</button>
+                    </div>
+                    <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
+                        <div class="flex items-center mb-2">
+                           <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
+                           <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
+                        </div>
+                        <p class="text-gray-300">Use verbos de ação e quantifique seus resultados! Em vez de "Responsável por vendas", tente "Aumentei as vendas em 20% no primeiro trimestre através de..."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Education -->
+            <div id="step-3" class="form-step">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">3. Formação Acadêmica</h2>
+                        <div id="education-fields" class="space-y-4">
+                           <!-- JS will populate this -->
+                        </div>
+                        <button id="add-education" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold">+ Adicionar outra formação</button>
+                    </div>
+                     <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
+                        <div class="flex items-center mb-2">
+                           <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
+                           <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
+                        </div>
+                        <p class="text-gray-300">Comece pela sua formação mais recente. Se você tem ensino superior, não precisa incluir o ensino médio. Cursos e certificações relevantes podem vir aqui ou em uma seção separada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Skills -->
+            <div id="step-4" class="form-step">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">4. Competências</h2>
+                        <textarea id="skills" placeholder="Ex: JavaScript, React, Figma, Gestão de Projetos, Scrum..." rows="8" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                    </div>
+                     <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
+                        <div class="flex items-center mb-2">
+                           <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
+                           <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
+                        </div>
+                        <p class="text-gray-300">Seja específico. Separe em categorias se fizer sentido (ex: Idiomas, Ferramentas, Habilidades Interpessoais). Coloque as competências mais relevantes para a vaga que você busca no topo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="mt-8 flex justify-between">
+                <button id="prev-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors">Anterior</button>
+                <button id="next-btn" class="beatache-button text-white font-bold py-2 px-6 rounded-lg">Próximo</button>
+                <button id="finish-btn" class="beatache-button hidden text-white font-bold py-2 px-6 rounded-lg">Finalizar e ver modelos</button>
             </div>
         </div>
     </div>
+
+    <!-- Template Selection & Preview Section -->
+    <div id="template-section" class="hidden min-h-screen container mx-auto p-4">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Escolha seu Modelo Favorito</h1>
+            <p class="text-lg text-gray-400">Clique em um modelo para visualizar com seus dados. Gostou? É só baixar!</p>
+        </div>
+
+        <!-- Template Thumbnails -->
+        <div class="flex justify-center gap-8 mb-8">
+            <div class="template-card cursor-pointer bg-gray-800 p-2 rounded-lg" data-template="moderno">
+                <img src="https://placehold.co/200x282/1f2937/ffffff?text=Moderno" alt="Template Moderno" class="rounded-md">
+                <p class="text-center font-bold mt-2">Moderno</p>
+            </div>
+            <div class="template-card cursor-pointer bg-gray-800 p-2 rounded-lg" data-template="criativo">
+                <img src="https://placehold.co/200x282/1f2937/ffffff?text=Criativo" alt="Template Criativo" class="rounded-md">
+                <p class="text-center font-bold mt-2">Criativo</p>
+            </div>
+             <div class="template-card cursor-pointer bg-gray-800 p-2 rounded-lg" data-template="minimalista">
+                <img src="https://placehold.co/200x282/1f2937/ffffff?text=Minimalista" alt="Template Minimalista" class="rounded-md">
+                 <p class="text-center font-bold mt-2">Minimalista</p>
+            </div>
+        </div>
+
+        <!-- Resume Preview Area -->
+        <div id="resume-preview-container" class="w-full max-w-4xl mx-auto">
+             <div class="flex justify-end mb-4">
+                <button id="edit-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors mr-2">
+                    <i data-lucide="edit" class="inline w-4 h-4 mr-2"></i>Voltar e Editar
+                </button>
+                <button id="download-btn" class="beatache-button text-white font-bold py-2 px-6 rounded-lg opacity-50 cursor-not-allowed" disabled>
+                    <i data-lucide="download" class="inline w-4 h-4 mr-2"></i>Fazer Download
+                </button>
+            </div>
+            <div id="resume-preview-content" class="p-8 bg-gray-700 rounded-lg text-center text-gray-400">
+                Selecione um modelo acima para visualizar seu currículo.
+            </div>
+        </div>
+    </div>
+
 
     <script>
-        // Initialize Lucide Icons
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Initialize Icons ---
         lucide.createIcons();
 
-        // DOM Elements
-        const landingPage = document.getElementById('landing-page');
-        const resumePreview = document.getElementById('resume-preview');
-        const generateBtn = document.getElementById('generate-btn');
+        // --- DOM Elements ---
+        const formWizard = document.getElementById('form-wizard');
+        const templateSection = document.getElementById('template-section');
+        const steps = document.querySelectorAll('.form-step');
+        const progressBar = document.getElementById('progress-bar');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const editBtn = document.getElementById('edit-btn');
         const downloadBtn = document.getElementById('download-btn');
-        const backBtn = document.getElementById('back-btn');
-        const linkedinUrlInput = document.getElementById('linkedin-url');
-        const resumeContent = document.getElementById('resume-content');
-        const errorMessage = document.getElementById('error-message');
+        const templateCards = document.querySelectorAll('.template-card');
+        const previewContent = document.getElementById('resume-preview-content');
         
-        // --- Event Listeners ---
-        
-        // Event listener for the "Gerar Currículo" button
-        generateBtn.addEventListener('click', () => {
-            const url = linkedinUrlInput.value;
-            errorMessage.textContent = ''; // Clear previous message
-            
-            // Basic validation: check if the input is not empty
-            if (!url.trim()) {
-                errorMessage.textContent = 'Por favor, insira o link do seu perfil no LinkedIn.';
-                return;
+        // --- State Management ---
+        let currentStep = 1;
+        const totalSteps = steps.length;
+        const resumeData = {
+            personal: {},
+            experience: [],
+            education: [],
+            skills: ''
+        };
+
+        // --- Dynamic Fields ---
+        const experienceFields = document.getElementById('experience-fields');
+        const addExperienceBtn = document.getElementById('add-experience');
+        const educationFields = document.getElementById('education-fields');
+        const addEducationBtn = document.getElementById('add-education');
+        let expCount = 0;
+        let eduCount = 0;
+
+        function addExperience() {
+            expCount++;
+            const div = document.createElement('div');
+            div.className = 'p-4 border border-gray-700 rounded-lg space-y-3';
+            div.innerHTML = `
+                <input type="text" data-key="title" placeholder="Cargo" class="w-full p-2 bg-gray-700 rounded-lg border border-gray-600">
+                <input type="text" data-key="company" placeholder="Empresa" class="w-full p-2 bg-gray-700 rounded-lg border border-gray-600">
+                <textarea data-key="description" placeholder="Descrição das atividades e resultados..." rows="3" class="w-full p-2 bg-gray-700 rounded-lg border border-gray-600"></textarea>
+            `;
+            experienceFields.appendChild(div);
+        }
+
+        function addEducation() {
+            eduCount++;
+            const div = document.createElement('div');
+            div.className = 'p-4 border border-gray-700 rounded-lg space-y-3';
+            div.innerHTML = `
+                <input type="text" data-key="course" placeholder="Curso ou Formação" class="w-full p-2 bg-gray-700 rounded-lg border border-gray-600">
+                <input type="text" data-key="institution" placeholder="Instituição" class="w-full p-2 bg-gray-700 rounded-lg border border-gray-600">
+                <input type="text" data-key="period" placeholder="Período (Ex: 2018 - 2022)" class="w-full p-2 bg-gray-700 rounded-lg border border-gray-600">
+            `;
+            educationFields.appendChild(div);
+        }
+
+        // Add initial fields
+        addExperience();
+        addEducation();
+        addExperienceBtn.addEventListener('click', addExperience);
+        addEducationBtn.addEventListener('click', addEducation);
+
+        // --- Form Navigation Logic ---
+        function updateFormView() {
+            steps.forEach(step => step.classList.remove('active'));
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+
+            progressBar.style.width = `${(currentStep / totalSteps) * 100}%`;
+            prevBtn.classList.toggle('hidden', currentStep === 1);
+            nextBtn.classList.toggle('hidden', currentStep === totalSteps);
+            finishBtn.classList.toggle('hidden', currentStep !== totalSteps);
+        }
+
+        function saveData() {
+            // Personal
+            resumeData.personal.fullName = document.getElementById('fullName').value;
+            resumeData.personal.email = document.getElementById('email').value;
+            resumeData.personal.phone = document.getElementById('phone').value;
+            resumeData.personal.linkedin = document.getElementById('linkedin').value;
+            resumeData.personal.summary = document.getElementById('summary').value;
+
+            // Experience
+            resumeData.experience = [];
+            experienceFields.querySelectorAll('div').forEach(expDiv => {
+                const exp = {};
+                expDiv.querySelectorAll('input, textarea').forEach(input => {
+                    exp[input.dataset.key] = input.value;
+                });
+                if(exp.title) resumeData.experience.push(exp);
+            });
+
+            // Education
+            resumeData.education = [];
+             educationFields.querySelectorAll('div').forEach(eduDiv => {
+                const edu = {};
+                eduDiv.querySelectorAll('input').forEach(input => {
+                    edu[input.dataset.key] = input.value;
+                });
+                 if(edu.course) resumeData.education.push(edu);
+            });
+
+            // Skills
+            resumeData.skills = document.getElementById('skills').value.split(',').map(s => s.trim()).filter(Boolean);
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateFormView();
             }
-            
-            // Simulate processing and switch views
-            landingPage.classList.add('hidden');
-            resumePreview.classList.add('flex');
-            resumePreview.classList.remove('hidden');
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateFormView();
+            }
+        });
+
+        finishBtn.addEventListener('click', () => {
+            saveData();
+            formWizard.classList.add('hidden');
+            templateSection.classList.remove('hidden');
+        });
+
+        editBtn.addEventListener('click', () => {
+            templateSection.classList.add('hidden');
+            formWizard.classList.remove('hidden');
         });
         
-        // Event listener for the "Voltar" button
-        backBtn.addEventListener('click', () => {
-            landingPage.classList.remove('hidden');
-            resumePreview.classList.remove('flex');
-            resumePreview.classList.add('hidden');
+        // --- Template Rendering ---
+        templateCards.forEach(card => {
+            card.addEventListener('click', () => {
+                templateCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                const templateName = card.dataset.template;
+                renderPreview(templateName);
+                downloadBtn.disabled = false;
+                downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            });
         });
+        
+        function renderPreview(template) {
+            let html = '';
+            const { personal, experience, education, skills } = resumeData;
 
-        // Event listener for the "Baixar PDF" button
+            const skillsHtml = skills.map(skill => `<span class="bg-gray-200 text-gray-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">${skill}</span>`).join('');
+
+            const experienceHtml = experience.map(exp => `
+                <div class="mb-4">
+                    <h4 class="text-lg font-bold">${exp.title || ''}</h4>
+                    <p class="text-sm text-cyan-700 font-semibold">${exp.company || ''}</p>
+                    <p class="text-sm text-gray-600 mt-1">${exp.description || ''}</p>
+                </div>
+            `).join('');
+
+            const educationHtml = education.map(edu => `
+                <div class="mb-2">
+                    <h4 class="text-md font-bold">${edu.course || ''}</h4>
+                    <p class="text-sm text-gray-700">${edu.institution || ''}</p>
+                    <p class="text-xs text-gray-500">${edu.period || ''}</p>
+                </div>
+            `).join('');
+
+            switch(template) {
+                case 'moderno':
+                    html = `
+                    <div class="resume-preview p-8 grid grid-cols-3 gap-8">
+                        <div class="col-span-1 border-r pr-8 border-gray-200">
+                             <h1 class="text-3xl font-extrabold mb-1">${personal.fullName || 'Seu Nome Aqui'}</h1>
+                             <div class="space-y-4 mt-8">
+                                <div>
+                                    <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">CONTATO</h3>
+                                    <p class="text-sm">${personal.email || ''}</p>
+                                    <p class="text-sm">${personal.phone || ''}</p>
+                                    <p class="text-sm">${personal.linkedin || ''}</p>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">COMPETÊNCIAS</h3>
+                                    <div class="flex flex-wrap gap-2 mt-2">${skillsHtml}</div>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-cyan-600 border-b-2 border-cyan-500 pb-1 mb-2">FORMAÇÃO</h3>
+                                    ${educationHtml}
+                                </div>
+                             </div>
+                        </div>
+                        <div class="col-span-2">
+                            <div>
+                                <h3 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-2">RESUMO</h3>
+                                <p class="text-gray-600 leading-relaxed">${personal.summary || ''}</p>
+                            </div>
+                             <div class="mt-6">
+                                <h3 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-2">EXPERIÊNCIA</h3>
+                                ${experienceHtml}
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    break;
+                case 'criativo':
+                     html = `
+                    <div class="resume-preview p-8">
+                        <div class="text-center pb-6 border-b-4 border-cyan-400">
+                            <h1 class="text-5xl font-extrabold">${personal.fullName || 'Seu Nome Aqui'}</h1>
+                            <p class="mt-2">${personal.email} | ${personal.phone} | ${personal.linkedin}</p>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-lg font-bold text-cyan-600 uppercase tracking-widest mb-2">Resumo</h3>
+                            <p class="text-gray-600 leading-relaxed">${personal.summary}</p>
+                        </div>
+                        <div class="mt-6 grid grid-cols-3 gap-8">
+                             <div class="col-span-2">
+                                <h3 class="text-lg font-bold text-cyan-600 uppercase tracking-widest mb-2">Experiência</h3>
+                                ${experienceHtml}
+                            </div>
+                            <div class="col-span-1">
+                                <h3 class="text-lg font-bold text-cyan-600 uppercase tracking-widest mb-2">Competências</h3>
+                                <div class="flex flex-wrap gap-2">${skillsHtml}</div>
+                                <h3 class="text-lg font-bold text-cyan-600 uppercase tracking-widest mt-6 mb-2">Formação</h3>
+                                ${educationHtml}
+                            </div>
+                        </div>
+                    </div>`;
+                    break;
+                case 'minimalista':
+                    html = `
+                    <div class="resume-preview p-8">
+                        <h1 class="text-4xl font-bold text-center">${personal.fullName || 'Seu Nome Aqui'}</h1>
+                        <p class="text-center text-sm text-gray-500 mb-6">${personal.email} | ${personal.phone} | ${personal.linkedin}</p>
+                        
+                        <h2 class="text-xl font-bold border-b-2 border-gray-300 pb-1 mb-3">Resumo</h2>
+                        <p class="text-gray-700 mb-6">${personal.summary}</p>
+
+                        <h2 class="text-xl font-bold border-b-2 border-gray-300 pb-1 mb-3">Experiência</h2>
+                        ${experienceHtml}
+                        
+                        <h2 class="text-xl font-bold border-b-2 border-gray-300 pb-1 mb-3 mt-6">Formação</h2>
+                        ${educationHtml}
+
+                        <h2 class="text-xl font-bold border-b-2 border-gray-300 pb-1 mb-3 mt-6">Competências</h2>
+                        <div class="flex flex-wrap gap-2">${skillsHtml}</div>
+                    </div>
+                    `;
+                    break;
+            }
+            previewContent.innerHTML = html;
+        }
+
+        // --- PDF Download ---
         downloadBtn.addEventListener('click', () => {
-            // Options for html2pdf
+            if (downloadBtn.disabled) return;
+            const content = previewContent.querySelector('.resume-preview');
+            const userName = resumeData.personal.fullName.replace(/\s+/g, '-') || 'Usuario';
             const options = {
-                margin:       0,
-                filename:     'Curriculo.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                margin: 0,
+                filename: `${userName}-CURRICULO.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
-
-            // Use html2pdf to generate the PDF from the resume-content div
-            html2pdf().from(resumeContent).set(options).save();
+            html2pdf().from(content).set(options).save();
         });
 
+
+        // Initialize form
+        updateFormView();
+    });
     </script>
 </body>
 </html>
