@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Social Sharing Logic ---
     if (socialShareContainer) {
-        const shareUrl = encodeURIComponent("https://ucuriculo.vercel.app"); // Using the author's portfolio link from README
+        const shareUrl = encodeURIComponent("https://ucurriculo.vercel.app"); // Using the author's portfolio link from README
         const shareText = encodeURIComponent("Olha só, acabei de criar meu currículo de forma simples e fácil com o Ucurriculo, crie o seu também!");
 
         const socialLinks = {
