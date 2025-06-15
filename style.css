@@ -41,17 +41,29 @@ body {
     box-shadow: 0 0 15px #2dd4bf80;
 }
 /* Custom styles for resume templates */
-.resume-preview { background-color: white; color: #1f2937; }
-.resume-preview h1, .resume-preview h2, .resume-preview h3, .resume-preview h4 { font-family: 'Inter', sans-serif; }
+.resume-preview { 
+    background-color: white; 
+    color: #1f2937; 
+    /* Força o A4. O JS vai escalar */
+    width: 21cm; 
+    min-height: 29.7cm; 
+    margin: 0 auto;
+}
+.resume-preview h1, .resume-preview h2, .resume-preview h3, .resume-preview h4 { 
+    font-family: 'Inter', sans-serif; 
+}
+.break-inside-avoid {
+    break-inside: avoid;
+}
 
-/* --- Novos Estilos para o Modal --- */
+/* --- Modal Styles --- */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(17, 24, 39, 0.8); /* bg-gray-900 com opacidade */
+    background-color: rgba(17, 24, 39, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,10 +73,10 @@ body {
 }
 
 .modal-content {
-    background-color: #1f2937; /* bg-gray-800 */
+    background-color: #1f2937;
     padding: 2rem;
     border-radius: 1rem;
-    border: 1px solid #374151; /* border-gray-700 */
+    border: 1px solid #374151;
     width: 90%;
     max-width: 600px;
     position: relative;
@@ -85,4 +97,23 @@ body {
 
 .modal-overlay.hidden {
     display: none;
+}
+
+/* --- Responsiveness for Preview --- */
+#resume-preview-container {
+    overflow-x: auto;
+}
+
+/* Em telas com menos de 820px de largura, o preview é escalado */
+@media (max-width: 819px) { 
+    #resume-preview-content .resume-preview {
+       transform-origin: top left;
+       /* Calcula a escala: 95% da largura da tela / largura de um A4 */
+       transform: scale(calc(95vw / 21cm));
+    }
+    
+    #resume-preview-container {
+        /* Ajusta a altura para caber o preview escalado */
+        height: calc(29.7cm * (95vw / 21cm) + 40px);
+    }
 }
