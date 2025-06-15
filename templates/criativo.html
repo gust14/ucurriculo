@@ -1,5 +1,5 @@
-<div class="resume-preview bg-white text-gray-800">
-    <header class="p-10 bg-gray-800 text-white text-center">
+<div class="resume-preview bg-white text-gray-800 p-10">
+    <header class="p-10 bg-gray-800 text-white text-center break-inside-avoid">
         <h1 class="text-5xl font-extrabold tracking-wider">{{fullName}}</h1>
         <div class="flex justify-center items-center gap-x-6 gap-y-2 mt-5 text-gray-300 flex-wrap text-sm">
             <a href="mailto:{{email}}" class="hover:text-cyan-400 flex items-center gap-x-2"><i data-lucide="mail" class="w-4 h-4"></i>{{email}}</a>
@@ -12,12 +12,12 @@
     <main class="p-10">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12">
             <div class="md:col-span-2">
-                <section class="mb-10">
+                <section class="mb-10 break-inside-avoid">
                     <h2 class="text-2xl font-bold text-cyan-700 uppercase tracking-widest mb-4">Resumo</h2>
                     <p class="text-gray-700 leading-relaxed text-justify">{{summary}}</p>
                 </section>
                 
-                <section>
+                <section class="break-inside-avoid">
                     <h2 class="text-2xl font-bold text-cyan-700 uppercase tracking-widest mb-5">Experiência</h2>
                     <div class="relative border-l-2 border-gray-200 pl-8 space-y-8">
                         {{experienceHtml}}
@@ -26,12 +26,12 @@
             </div>
             
             <div class="md:col-span-1 mt-10 md:mt-0">
-                <section class="mb-8">
+                <section class="mb-8 break-inside-avoid">
                     <h3 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-4">Competências</h3>
                     {{skillsHtml}}
                 </section>
                 
-                <section>
+                <section class="break-inside-avoid">
                     <h3 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-4">Formação</h3>
                     <div class="space-y-4">{{educationHtml}}</div>
                 </section>

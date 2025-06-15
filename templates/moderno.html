@@ -1,12 +1,12 @@
 <div class="resume-preview p-10 leading-normal text-gray-800">
     <div class="grid grid-cols-12 gap-x-10">
-        <div class="col-span-4 border-r pr-8 border-gray-200">
-            <header class="mb-10">
+        <div class="col-span-12 md:col-span-4 md:border-r pr-8 border-gray-200">
+            <header class="mb-10 break-inside-avoid">
                 <h1 class="text-4xl font-extrabold tracking-tight text-cyan-800">{{fullName}}</h1>
                 </header>
 
             <div class="space-y-8">
-                <section>
+                <section class="break-inside-avoid">
                     <h3 class="font-bold text-cyan-600 tracking-wider uppercase text-sm border-b-2 border-cyan-500 pb-1 mb-4">Contato</h3>
                     <div class="space-y-3 text-sm">
                         <p class="flex items-center gap-x-2"><i data-lucide="mail" class="w-4 h-4 text-gray-500 flex-shrink-0"></i>{{email}}</p>
@@ -15,25 +15,25 @@
                     </div>
                 </section>
     
-                <section>
+                <section class="break-inside-avoid">
                     <h3 class="font-bold text-cyan-600 tracking-wider uppercase text-sm border-b-2 border-cyan-500 pb-1 mb-4">Formação</h3>
                     <div class="space-y-4">{{educationHtml}}</div>
                 </section>
     
-                <section>
+                <section class="break-inside-avoid">
                     <h3 class="font-bold text-cyan-600 tracking-wider uppercase text-sm border-b-2 border-cyan-500 pb-1 mb-4">Competências</h3>
                     {{skillsHtml}}
                 </section>
             </div>
         </div>
 
-        <div class="col-span-8">
-             <section class="mb-10">
+        <div class="col-span-12 md:col-span-8">
+             <section class="mb-10 break-inside-avoid">
                 <h2 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-4 tracking-wide">RESUMO PROFISSIONAL</h2>
                 <p class="text-gray-700 leading-relaxed text-justify">{{summary}}</p>
             </section>
     
-            <section>
+            <section class="break-inside-avoid">
                 <h2 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-4 tracking-wide">EXPERIÊNCIA PROFISSIONAL</h2>
                 <div class="space-y-4">{{experienceHtml}}</div>
             </section>

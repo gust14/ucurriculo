@@ -40,12 +40,12 @@ body {
     border-color: #2dd4bf;
     box-shadow: 0 0 15px #2dd4bf80;
 }
-/* Custom styles for resume templates */
+/* Custom styles for resume templates for PDF rendering */
 .resume-preview {
     background-color: white;
     color: #1f2937;
-    width: 21cm; /* Largura padrão A4 */
-    min-height: 29.7cm; /* Altura padrão A4 */
+    width: 21cm; 
+    min-height: 29.7cm;
     margin: 0 auto; /* Centraliza na tela de preview */
 }
 .resume-preview h1, .resume-preview h2, .resume-preview h3, .resume-preview h4 {
@@ -59,6 +59,22 @@ body {
 .break-after-avoid {
     break-after: avoid;
 }
+
+/* --- Social Share Styles --- */
+.social-link {
+    display: inline-block;
+    padding: 0.75rem;
+    background-color: #374151; /* bg-gray-700 */
+    border-radius: 9999px; /* rounded-full */
+    color: #9ca3af; /* text-gray-400 */
+    transition: all 0.2s ease-in-out;
+}
+.social-link:hover {
+    color: white;
+    background-color: #4b5563; /* bg-gray-600 */
+    transform: translateY(-2px);
+}
+
 
 /* --- Modal Styles --- */
 .modal-overlay {
@@ -105,17 +121,42 @@ body {
 
 /* --- Responsiveness for Preview --- */
 #resume-preview-container {
-    background-color: #4b5563; /* Cor de fundo para o "espaço de trabalho" */
+    background-color: #4b5563; 
     padding: 2rem 0;
     overflow-x: auto;
 }
 
+/* Mobile responsive preview - major improvement */
 @media (max-width: 820px) {
     #resume-preview-container {
         padding: 1rem 0;
+        background-color: transparent; /* Remove o fundo cinza no mobile */
     }
     .resume-preview {
-       transform-origin: top center;
-       transform: scale(calc(95vw / 21cm));
+       /* Overwrite the A4 fixed size for a responsive view on mobile */
+       width: 100%;
+       min-height: auto;
+       /* The html2pdf library will use the A4 format from JS options, not from this CSS */
+    }
+    /* Adjust paddings on templates for smaller screens */
+    .resume-preview.p-12 { padding: 1.5rem; }
+    .resume-preview.p-10 { padding: 1.5rem; }
+
+    /* Make grid layouts stack on mobile */
+    .resume-preview .grid {
+        display: block;
+    }
+    .resume-preview .grid > div {
+        margin-top: 2rem;
+    }
+    .resume-preview .grid > div:first-child {
+        margin-top: 0;
+    }
+     .resume-preview .border-r {
+        border-right-width: 0;
+        padding-right: 0;
+        border-bottom-width: 2px;
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
     }
 }

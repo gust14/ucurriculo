@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const addEducationBtn = document.getElementById('add-education');
     const successModal = document.getElementById('success-modal');
     const closeModalBtn = document.getElementById('close-modal');
+    const socialShareContainer = document.getElementById('social-share');
+
 
     // --- State Management ---
     let currentStep = 1;
@@ -118,9 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         inputs.forEach(input => {
             input.classList.remove('border-red-500', 'placeholder:text-red-400');
+            // Check if input is not optional and is empty
             if (input.value.trim() === '' && !input.placeholder.toLowerCase().includes('opcional') && input.dataset.key !== 'url') {
-                isValid = false;
-                input.classList.add('border-red-500', 'placeholder:text-red-400');
+                 // Check if it's not a disabled field (like endDate for a current job)
+                if(!input.disabled) {
+                    isValid = false;
+                    input.classList.add('border-red-500', 'placeholder:text-red-400');
+                }
             }
         });
         
@@ -199,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     finishBtn.addEventListener('click', () => {
+        if (!validateStep(currentStep)) return;
         saveData();
         formWizard.classList.add('hidden');
         templateSection.classList.remove('hidden');
@@ -246,8 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const skillsHtml = `<div class="space-y-4">${createSkillsHtml(skills.tools, 'Ferramentas e Tecnologias')}${createSkillsHtml(skills.interpersonal, 'Habilidades Interpessoais')}${createSkillsHtml(skills.languages, 'Idiomas')}</div>`;
 
             const experienceHtml = experience.map(exp => {
-                const period = `${exp.startDate || ''} - ${exp.isCurrent ? 'Atual' : (exp.endDate || 'Presente')}`;
-                return `<div class="break-inside-avoid mb-5"><div class="flex justify-between items-baseline"><h4 class="text-lg font-bold text-gray-800">${exp.title || ''}</h4><p class="text-xs text-gray-500 font-mono pl-2 text-right whitespace-nowrap">${period}</p></div><p class="text-md text-cyan-700 font-semibold">${exp.company || ''}</p><p class="text-sm text-gray-600 mt-1.5 leading-relaxed">${exp.description.replace(/\n/g, '<br>') || ''}</p></div>`;
+                const period = `${exp.startDate || ''} - ${exp.isCurrent ? 'Atual' : (exp.endDate || '')}`;
+                return `<div class="break-inside-avoid mb-5"><div class="flex justify-between items-baseline"><h4 class="text-lg font-bold text-gray-800">${exp.title || ''}</h4><p class="text-xs text-gray-500 font-mono pl-2 text-right whitespace-nowrap">${period}</p></div><p class="text-md text-cyan-700 font-semibold">${exp.company || ''}</p><div class="text-sm text-gray-600 mt-1.5 leading-relaxed">${(exp.description || '').replace(/\n/g, '<br>')}</div></div>`;
             }).join('');
             
             const educationHtml = education.map(edu => `
@@ -257,13 +264,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 .replace(/{{fullName}}/g, personal.fullName || 'Seu Nome Aqui')
                 .replace(/{{email}}/g, personal.email || 'seu.email@dominio.com')
                 .replace(/{{phone}}/g, personal.phone || '(00) 12345-6789')
-                .replace(/{{summary}}/g, personal.summary.replace(/\n/g, '<br>') || 'Adicione um resumo profissional conciso sobre suas qualificações e objetivos.')
+                .replace(/{{summary}}/g, (personal.summary || 'Adicione um resumo profissional conciso sobre suas qualificações e objetivos.').replace(/\n/g, '<br>'))
                 .replace(/{{linksHtml}}/g, linksHtml)
                 .replace(/{{skillsHtml}}/g, skillsHtml)
                 .replace(/{{experienceHtml}}/g, experienceHtml)
                 .replace(/{{educationHtml}}/g, educationHtml);
 
             previewContent.innerHTML = templateHtml;
+            // Add template name as a class for specific styling
+            const previewEl = previewContent.querySelector('.resume-preview');
+            if(previewEl) previewEl.classList.add(template);
             lucide.createIcons();
         } catch (error) {
             console.error(error);
@@ -278,14 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!content) return;
         const userName = (resumeData.personal.fullName || 'Usuario').replace(/[^a-z0-9]/gi, '_').toLowerCase();
         
-        // Opções melhoradas para o html2pdf
         const options = {
             margin: 0,
             filename: `ucurriculo_${userName}.pdf`,
-            image: { type: 'jpeg', quality: 1.0 }, // Qualidade máxima da imagem
-            html2canvas: { scale: 3, useCORS: true, letterRendering: true }, // Escala maior para melhor resolução
+            image: { type: 'jpeg', quality: 1.0 },
+            html2canvas: { scale: 3, useCORS: true, letterRendering: true },
             jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: ['css', 'legacy'], avoid: '.break-inside-avoid' } // Evita quebra dentro de elementos com a classe
+            pagebreak: { mode: ['css', 'legacy'], before: '.page-break-before', avoid: '.break-inside-avoid' }
         };
 
         html2pdf().from(content).set(options).save().then(() => {
@@ -305,6 +314,31 @@ document.addEventListener('DOMContentLoaded', () => {
     successModal.addEventListener('click', e => {
         if (e.target === successModal) hideSuccessModal();
     });
+    
+    // --- Social Sharing Logic ---
+    if (socialShareContainer) {
+        const shareUrl = encodeURIComponent("https://14web.vercel.app/"); // Using the author's portfolio link from README
+        const shareText = encodeURIComponent("Olha só, acabei de criar meu currículo de forma simples e fácil com o Ucurriculo, crie o seu também!");
+
+        const socialLinks = {
+            facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`,
+            linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`,
+            whatsapp: `https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}`,
+        };
+
+        socialShareContainer.addEventListener('click', (e) => {
+            const link = e.target.closest('.social-link');
+            if (!link) return;
+
+            e.preventDefault();
+            const social = link.dataset.social;
+
+            if (socialLinks[social]) {
+                window.open(socialLinks[social], '_blank', 'width=600,height=600,noopener,noreferrer');
+            }
+        });
+    }
+
 
     // --- Initializations ---
     addLink();
