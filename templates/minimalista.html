@@ -1,33 +1,35 @@
 <div class="resume-preview p-12 bg-white text-gray-800 font-sans">
-    <header class="text-center mb-10">
-        <h1 class="text-5xl font-bold tracking-tight">{{fullName}}</h1>
-        <div class="mt-4 text-sm text-gray-500 tracking-widest flex justify-center items-center flex-wrap gap-x-4 gap-y-1">
+    <header class="text-center mb-12">
+        <h1 class="text-5xl font-bold tracking-tight text-gray-900">{{fullName}}</h1>
+        <div class="mt-5 text-base text-gray-500 flex justify-center items-center flex-wrap gap-x-4 gap-y-1">
             <span>{{email}}</span>
-            <span>&bull;</span>
+            <span class="text-gray-300">&bull;</span>
             <span>{{phone}}</span>
         </div>
-        <div class="flex justify-center items-center flex-wrap gap-x-4 gap-y-1 mt-3">{{linksHtml}}</div>
+        <div class="flex justify-center items-center flex-wrap gap-x-5 gap-y-2 mt-4">{{linksHtml}}</div>
     </header>
 
-    <hr class="mb-10 border-gray-200">
+    <hr class="mb-12 border-gray-200">
 
-    <section class="mb-10">
-        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Resumo</h2>
-        <p class="text-gray-700 leading-relaxed text-base">{{summary}}</p>
-    </section>
+    <main class="space-y-12">
+        <section>
+            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Resumo</h2>
+            <p class="text-gray-700 leading-relaxed text-base">{{summary}}</p>
+        </section>
 
-    <section class="mb-10">
-        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Experiência Profissional</h2>
-        <div class="space-y-6">{{experienceHtml}}</div>
-    </section>
+        <section>
+            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Experiência Profissional</h2>
+            <div class="space-y-6">{{experienceHtml}}</div>
+        </section>
 
-    <section class="mb-10">
-        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Formação Acadêmica</h2>
-        <div class="space-y-5">{{educationHtml}}</div>
-    </section>
+        <section>
+            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Formação Acadêmica</h2>
+            <div class="space-y-5">{{educationHtml}}</div>
+        </section>
 
-    <section>
-        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Competências</h2>
-        {{skillsHtml}}
-    </section>
+        <section>
+            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Competências</h2>
+            {{skillsHtml}}
+        </section>
+    </main>
 </div>

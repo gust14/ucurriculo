@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addEducationBtn = document.getElementById('add-education');
     const successModal = document.getElementById('success-modal');
     const closeModalBtn = document.getElementById('close-modal');
-    
+
     // --- State Management ---
     let currentStep = 1;
     const totalSteps = steps.length;
@@ -117,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const inputs = currentStepDiv.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], textarea');
 
         inputs.forEach(input => {
-            input.classList.remove('border-red-500');
-            if (input.value.trim() === '' && input.id !== 'linkedin' && !input.placeholder.toLowerCase().includes('opcional')) {
+            input.classList.remove('border-red-500', 'placeholder:text-red-400');
+            if (input.value.trim() === '' && !input.placeholder.toLowerCase().includes('opcional') && input.dataset.key !== 'url') {
                 isValid = false;
                 input.classList.add('border-red-500', 'placeholder:text-red-400');
             }
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     editBtn.addEventListener('click', () => {
         templateSection.classList.add('hidden');
         formWizard.classList.remove('hidden');
-        previewContent.innerHTML = 'Selecione um modelo acima para visualizar seu currículo.';
+        previewContent.innerHTML = '<div class="p-8 flex items-center justify-center text-gray-400 h-full">Selecione um modelo acima para visualizar seu currículo.</div>';
         downloadBtn.disabled = true;
         downloadBtn.classList.add('opacity-50', 'cursor-not-allowed');
         templateCards.forEach(c => c.classList.remove('selected'));
@@ -233,31 +233,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const { personal, experience, education, skills } = resumeData;
 
             const linksHtml = personal.links.map(link => `
-                <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="flex items-center text-sm hover:text-cyan-600 transition-colors">
-                    <i data-lucide="${link.icon}" class="inline w-4 h-4 mr-2"></i>
-                    <span>${link.url.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '')}</span>
+                <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-x-2 text-sm hover:text-cyan-600 transition-colors">
+                    <i data-lucide="${link.icon}" class="w-4 h-4 flex-shrink-0"></i>
+                    <span class="truncate">${link.url.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '')}</span>
                 </a>`).join('');
 
             const createSkillsHtml = (skillsList, categoryName) => {
                 if (!skillsList || skillsList.length === 0) return '';
-                const skillsItems = skillsList.map(skill => `<span class="bg-gray-200 text-gray-700 text-xs font-semibold mr-2 mb-2 px-2.5 py-0.5 rounded-full">${skill}</span>`).join('');
-                return `<div class="mb-4 break-inside-avoid"><h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">${categoryName}</h4><div class="flex flex-wrap">${skillsItems}</div></div>`;
+                const skillsItems = skillsList.map(skill => `<span class="inline-block bg-gray-200 text-gray-800 text-xs font-medium px-3 py-1 rounded-full">${skill}</span>`).join('');
+                return `<div class="break-inside-avoid"><h4 class="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-2">${categoryName}</h4><div class="flex flex-wrap gap-2">${skillsItems}</div></div>`;
             };
-            const skillsHtml = createSkillsHtml(skills.tools, 'Ferramentas e Tecnologias') + createSkillsHtml(skills.interpersonal, 'Habilidades Interpessoais') + createSkillsHtml(skills.languages, 'Idiomas');
+            const skillsHtml = `<div class="space-y-4">${createSkillsHtml(skills.tools, 'Ferramentas e Tecnologias')}${createSkillsHtml(skills.interpersonal, 'Habilidades Interpessoais')}${createSkillsHtml(skills.languages, 'Idiomas')}</div>`;
 
             const experienceHtml = experience.map(exp => {
                 const period = `${exp.startDate || ''} - ${exp.isCurrent ? 'Atual' : (exp.endDate || 'Presente')}`;
-                return `<div class="mb-4 break-inside-avoid"><div class="flex justify-between items-baseline"><h4 class="text-lg font-bold">${exp.title || ''}</h4><p class="text-xs text-gray-500 font-mono pl-2 text-right">${period}</p></div><p class="text-md text-cyan-700 font-semibold">${exp.company || ''}</p><p class="text-sm text-gray-600 mt-1 leading-relaxed">${exp.description || ''}</p></div>`;
+                return `<div class="break-inside-avoid mb-5"><div class="flex justify-between items-baseline"><h4 class="text-lg font-bold text-gray-800">${exp.title || ''}</h4><p class="text-xs text-gray-500 font-mono pl-2 text-right whitespace-nowrap">${period}</p></div><p class="text-md text-cyan-700 font-semibold">${exp.company || ''}</p><p class="text-sm text-gray-600 mt-1.5 leading-relaxed">${exp.description.replace(/\n/g, '<br>') || ''}</p></div>`;
             }).join('');
             
             const educationHtml = education.map(edu => `
-                <div class="mb-3 break-inside-avoid"><h4 class="text-md font-bold">${edu.course || ''}</h4><p class="text-sm text-gray-700">${edu.institution || ''}</p><p class="text-xs text-gray-500">${edu.period || ''}</p></div>`).join('');
+                <div class="break-inside-avoid mb-3"><h4 class="text-md font-bold text-gray-800">${edu.course || ''}</h4><p class="text-sm text-gray-700">${edu.institution || ''}</p><p class="text-xs text-gray-500">${edu.period || ''}</p></div>`).join('');
 
             templateHtml = templateHtml
                 .replace(/{{fullName}}/g, personal.fullName || 'Seu Nome Aqui')
-                .replace(/{{email}}/g, personal.email || '')
-                .replace(/{{phone}}/g, personal.phone || '')
-                .replace(/{{summary}}/g, personal.summary || '')
+                .replace(/{{email}}/g, personal.email || 'seu.email@dominio.com')
+                .replace(/{{phone}}/g, personal.phone || '(00) 12345-6789')
+                .replace(/{{summary}}/g, personal.summary.replace(/\n/g, '<br>') || 'Adicione um resumo profissional conciso sobre suas qualificações e objetivos.')
                 .replace(/{{linksHtml}}/g, linksHtml)
                 .replace(/{{skillsHtml}}/g, skillsHtml)
                 .replace(/{{experienceHtml}}/g, experienceHtml)
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
         } catch (error) {
             console.error(error);
-            previewContent.innerHTML = `<p class="text-red-400">Erro ao carregar o preview. Tente novamente.</p>`;
+            previewContent.innerHTML = `<p class="text-red-400 p-8">Erro ao carregar o preview. Tente novamente.</p>`;
         }
     }
 
@@ -278,12 +278,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!content) return;
         const userName = (resumeData.personal.fullName || 'Usuario').replace(/[^a-z0-9]/gi, '_').toLowerCase();
         
+        // Opções melhoradas para o html2pdf
         const options = {
             margin: 0,
             filename: `ucurriculo_${userName}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            image: { type: 'jpeg', quality: 1.0 }, // Qualidade máxima da imagem
+            html2canvas: { scale: 3, useCORS: true, letterRendering: true }, // Escala maior para melhor resolução
+            jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' },
+            pagebreak: { mode: ['css', 'legacy'], avoid: '.break-inside-avoid' } // Evita quebra dentro de elementos com a classe
         };
 
         html2pdf().from(content).set(options).save().then(() => {

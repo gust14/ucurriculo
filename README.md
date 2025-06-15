@@ -4,7 +4,7 @@ Olá! Seja bem-vindo ao **Ucurriculo**. Meu nome é Luis Gustavo e, como um apai
 
 A ideia é simples: criar um currículo deveria ser uma etapa motivadora, e não uma barreira.
 
-### ✨ A Filosofia por Trás do Projeto
+###  A Filosofia por Trás do Projeto
 
 Eu acredito firmemente que um bom software não precisa de manuais. Ele precisa de uma boa experiência. Minha filosofia é que o usuário deve "sair mexendo", simplesmente porque a interface é tão intuitiva que o guia.
 

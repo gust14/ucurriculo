@@ -1,37 +1,41 @@
-<div class="resume-preview">
-    <div class="p-8 bg-gray-800 text-white text-center rounded-t-lg">
+<div class="resume-preview bg-white text-gray-800">
+    <header class="p-10 bg-gray-800 text-white text-center">
         <h1 class="text-5xl font-extrabold tracking-wider">{{fullName}}</h1>
-        <div class="flex justify-center items-center gap-x-6 gap-y-2 mt-4 text-gray-300 flex-wrap">
-            <a href="mailto:{{email}}" class="hover:text-cyan-400 flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i>{{email}}</a>
-            <span class="hidden md:inline">&bull;</span>
-            <a href="tel:{{phone}}" class="hover:text-cyan-400 flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i>{{phone}}</a>
+        <div class="flex justify-center items-center gap-x-6 gap-y-2 mt-5 text-gray-300 flex-wrap text-sm">
+            <a href="mailto:{{email}}" class="hover:text-cyan-400 flex items-center gap-x-2"><i data-lucide="mail" class="w-4 h-4"></i>{{email}}</a>
+            <span class="hidden md:inline text-gray-500">&bull;</span>
+            <a href="tel:{{phone}}" class="hover:text-cyan-400 flex items-center gap-x-2"><i data-lucide="phone" class="w-4 h-4"></i>{{phone}}</a>
         </div>
-        <div class="flex justify-center items-center flex-wrap gap-x-4 gap-y-1 mt-3">{{linksHtml}}</div>
-    </div>
+        <div class="flex justify-center items-center flex-wrap gap-x-5 gap-y-2 mt-4">{{linksHtml}}</div>
+    </header>
 
-    <div class="p-10 grid grid-cols-1 md:grid-cols-3 gap-10 bg-white text-gray-800">
-        <div class="md:col-span-2">
-            <section class="mb-8">
-                <h2 class="text-2xl font-bold text-cyan-600 uppercase tracking-widest mb-4">Resumo</h2>
-                <p class="text-gray-700 leading-relaxed">{{summary}}</p>
-            </section>
+    <main class="p-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12">
+            <div class="md:col-span-2">
+                <section class="mb-10">
+                    <h2 class="text-2xl font-bold text-cyan-700 uppercase tracking-widest mb-4">Resumo</h2>
+                    <p class="text-gray-700 leading-relaxed text-justify">{{summary}}</p>
+                </section>
+                
+                <section>
+                    <h2 class="text-2xl font-bold text-cyan-700 uppercase tracking-widest mb-5">Experiência</h2>
+                    <div class="relative border-l-2 border-gray-200 pl-8 space-y-8">
+                        {{experienceHtml}}
+                    </div>
+                </section>
+            </div>
             
-            <section>
-                <h2 class="text-2xl font-bold text-cyan-600 uppercase tracking-widest mb-4">Experiência</h2>
-                <div class="space-y-6 border-l-2 border-gray-200 pl-6">{{experienceHtml}}</div>
-            </section>
+            <div class="md:col-span-1 mt-10 md:mt-0">
+                <section class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-4">Competências</h3>
+                    {{skillsHtml}}
+                </section>
+                
+                <section>
+                    <h3 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-4">Formação</h3>
+                    <div class="space-y-4">{{educationHtml}}</div>
+                </section>
+            </div>
         </div>
-        
-        <div class="col-span-1">
-            <section class="mb-8">
-                <h3 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-4">Competências</h3>
-                {{skillsHtml}}
-            </section>
-            
-            <section>
-                <h3 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-4">Formação</h3>
-                <div class="space-y-4">{{educationHtml}}</div>
-            </section>
-        </div>
-    </div>
+    </main>
 </div>

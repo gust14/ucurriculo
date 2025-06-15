@@ -41,19 +41,23 @@ body {
     box-shadow: 0 0 15px #2dd4bf80;
 }
 /* Custom styles for resume templates */
-.resume-preview { 
-    background-color: white; 
-    color: #1f2937; 
-    /* Força o A4. O JS vai escalar */
-    width: 21cm; 
-    min-height: 29.7cm; 
-    margin: 0 auto;
+.resume-preview {
+    background-color: white;
+    color: #1f2937;
+    width: 21cm; /* Largura padrão A4 */
+    min-height: 29.7cm; /* Altura padrão A4 */
+    margin: 0 auto; /* Centraliza na tela de preview */
 }
-.resume-preview h1, .resume-preview h2, .resume-preview h3, .resume-preview h4 { 
-    font-family: 'Inter', sans-serif; 
+.resume-preview h1, .resume-preview h2, .resume-preview h3, .resume-preview h4 {
+    font-family: 'Inter', sans-serif;
 }
+
+/* Classes de controle para a geração do PDF */
 .break-inside-avoid {
     break-inside: avoid;
+}
+.break-after-avoid {
+    break-after: avoid;
 }
 
 /* --- Modal Styles --- */
@@ -101,19 +105,17 @@ body {
 
 /* --- Responsiveness for Preview --- */
 #resume-preview-container {
+    background-color: #4b5563; /* Cor de fundo para o "espaço de trabalho" */
+    padding: 2rem 0;
     overflow-x: auto;
 }
 
-/* Em telas com menos de 820px de largura, o preview é escalado */
-@media (max-width: 819px) { 
-    #resume-preview-content .resume-preview {
-       transform-origin: top left;
-       /* Calcula a escala: 95% da largura da tela / largura de um A4 */
-       transform: scale(calc(95vw / 21cm));
-    }
-    
+@media (max-width: 820px) {
     #resume-preview-container {
-        /* Ajusta a altura para caber o preview escalado */
-        height: calc(29.7cm * (95vw / 21cm) + 40px);
+        padding: 1rem 0;
+    }
+    .resume-preview {
+       transform-origin: top center;
+       transform: scale(calc(95vw / 21cm));
     }
 }
