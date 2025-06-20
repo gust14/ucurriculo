@@ -1,35 +1,33 @@
-<div class="resume-preview p-12 bg-white text-gray-800 font-sans">
-    <header class="text-center mb-12 break-inside-avoid">
-        <h1 class="text-5xl font-bold tracking-tight text-gray-900">{{fullName}}</h1>
-        <div class="mt-5 text-base text-gray-500 flex justify-center items-center flex-wrap gap-x-4 gap-y-1">
+<div class="resume-preview minimalista">
+    <header class="header break-inside-avoid">
+        <h1 class="main-title">{{fullName}}</h1>
+        <div class="contact-info">
             <span>{{email}}</span>
-            <span class="text-gray-300">&bull;</span>
+            <span class="separator">&bull;</span>
             <span>{{phone}}</span>
         </div>
-        <div class="flex justify-center items-center flex-wrap gap-x-5 gap-y-2 mt-4">{{linksHtml}}</div>
+        <div class="social-links-container">{{linksHtml}}</div>
     </header>
-
-    <hr class="mb-12 border-gray-200">
 
     <main class="space-y-12">
         <section class="break-inside-avoid">
-            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Resumo</h2>
-            <p class="text-gray-700 leading-relaxed text-base">{{summary}}</p>
+            <h2 class="section-title">Resumo</h2>
+            <p class="text-gray-700 leading-relaxed text-base text-justify">{{summary}}</p>
         </section>
 
         <section class="break-inside-avoid">
-            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Experiência Profissional</h2>
-            <div class="space-y-6">{{experienceHtml}}</div>
+            <h2 class="section-title">Experiência</h2>
+            <div class="space-y-8">{{experienceHtml}}</div>
         </section>
 
         <section class="break-inside-avoid">
-            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Formação Acadêmica</h2>
-            <div class="space-y-5">{{educationHtml}}</div>
+            <h2 class="section-title">Formação</h2>
+            <div class="space-y-6">{{educationHtml}}</div>
         </section>
 
         <section class="break-inside-avoid">
-            <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Competências</h2>
-            {{skillsHtml}}
+            <h2 class="section-title">Competências</h2>
+            <div class="space-y-6">{{skillsHtml}}</div>
         </section>
     </main>
 </div>

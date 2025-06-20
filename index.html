@@ -49,10 +49,10 @@
                     <div>
                         <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">1. Informações Pessoais</h2>
                         <div class="space-y-4">
-                            <input type="text" id="fullName" placeholder="Nome Completo" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
-                            <input type="email" id="email" placeholder="Email" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
-                            <input type="tel" id="phone" placeholder="Telefone" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
-                            <textarea id="summary" placeholder="Um breve resumo sobre você..." rows="4" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                            <div class="relative"><input type="text" id="fullName" placeholder="Nome Completo" data-placeholder="Nome Completo" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></div>
+                            <div class="relative"><input type="email" id="email" placeholder="Email" data-placeholder="Email" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></div>
+                            <div class="relative"><input type="tel" id="phone" placeholder="Telefone (Ex: (11) 98765-4321)" data-placeholder="Telefone (Ex: (11) 98765-4321)" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></div>
+                            <div class="relative"><textarea id="summary" placeholder="Um breve resumo sobre você..." data-placeholder="Um breve resumo sobre você..." rows="4" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea></div>
                              <div class="space-y-4 pt-2">
                                 <h3 class="text-lg font-semibold text-gray-300 -mb-2">Links (Opcional)</h3>
                                 <div id="links-container" class="space-y-3">
@@ -110,17 +110,17 @@
                     <div>
                         <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">4. Competências</h2>
                         <div class="space-y-6">
-                            <div>
+                            <div class="relative">
                                 <label for="skills-tools" class="block mb-2 text-lg font-medium text-gray-300">Ferramentas e Tecnologias</label>
-                                <textarea id="skills-tools" placeholder="Ex: JavaScript, React, Figma, Docker, AWS..." rows="4" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                                <textarea id="skills-tools" placeholder="Ex: JavaScript, React, Figma, Docker, AWS..." data-placeholder="Ex: JavaScript, React, Figma, Docker, AWS..." rows="4" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
                             </div>
-                            <div>
+                            <div class="relative">
                                 <label for="skills-interpersonal" class="block mb-2 text-lg font-medium text-gray-300">Habilidades Interpessoais</label>
-                                <textarea id="skills-interpersonal" placeholder="Ex: Comunicação, Liderança, Trabalho em Equipe, Resolução de Conflitos..." rows="3" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                                <textarea id="skills-interpersonal" placeholder="Ex: Comunicação, Liderança, Trabalho em Equipe, Resolução de Conflitos..." data-placeholder="Ex: Comunicação, Liderança, Trabalho em Equipe, Resolução de Conflitos..." rows="3" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
                             </div>
-                            <div>
+                            <div class="relative">
                                 <label for="skills-languages" class="block mb-2 text-lg font-medium text-gray-300">Idiomas</label>
-                                <textarea id="skills-languages" placeholder="Ex: Português (Nativo), Inglês (Fluente), Espanhol (Básico)..." rows="2" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                                <textarea id="skills-languages" placeholder="Ex: Português (Nativo), Inglês (Fluente), Espanhol (Básico)..." data-placeholder="Ex: Português (Nativo), Inglês (Fluente), Espanhol (Básico)..." rows="2" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
                             </div>
                         </div>
                     </div>
@@ -138,6 +138,13 @@
                 <button id="prev-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors">Anterior</button>
                 <button id="next-btn" class="beatache-button text-white font-bold py-2 px-6 rounded-lg">Próximo</button>
                 <button id="finish-btn" class="beatache-button hidden text-white font-bold py-2 px-6 rounded-lg">Finalizar e ver modelos</button>
+            </div>
+        </div>
+
+        <div class="text-center mt-10">
+            <div class="inline-block bg-gray-800/50 border border-gray-700 rounded-xl px-6 py-4">
+                <p class="text-gray-400 text-sm">Currículos incríveis já gerados:</p>
+                <p id="resume-counter" class="text-4xl font-extrabold beatache-gradient-text animate-pulse">...</p>
             </div>
         </div>
 

@@ -1,41 +1,46 @@
-<div class="resume-preview p-10 leading-normal text-gray-800">
-    <div class="grid grid-cols-12 gap-x-10">
-        <div class="col-span-12 md:col-span-4 md:border-r pr-8 border-gray-200">
-            <header class="mb-10 break-inside-avoid">
-                <h1 class="text-4xl font-extrabold tracking-tight text-cyan-800">{{fullName}}</h1>
-                </header>
+<div class="resume-preview moderno font-sans text-gray-800">
+    <div class="grid grid-cols-12 gap-10 p-12">
+        <div class="col-span-12 md:col-span-4 left-column">
+            <header class="mb-12">
+                <h1 class="main-title">{{fullName}}</h1>
+                <p class="text-xl font-light text-cyan-700">Cargo Desejado</p>
+            </header>
 
-            <div class="space-y-8">
+            <div class="space-y-10">
                 <section class="break-inside-avoid">
-                    <h3 class="font-bold text-cyan-600 tracking-wider uppercase text-sm border-b-2 border-cyan-500 pb-1 mb-4">Contato</h3>
-                    <div class="space-y-3 text-sm">
-                        <p class="flex items-center gap-x-2"><i data-lucide="mail" class="w-4 h-4 text-gray-500 flex-shrink-0"></i>{{email}}</p>
-                        <p class="flex items-center gap-x-2"><i data-lucide="phone" class="w-4 h-4 text-gray-500 flex-shrink-0"></i>{{phone}}</p>
-                        <div class="space-y-3 pt-1">{{linksHtml}}</div>
+                    <h3 class="section-title">Contato</h3>
+                    <div class="space-y-3 text-sm" id="contact-info">
+                        <a href="mailto:{{email}}" class="social-link-item">
+                            <i data-lucide="mail" class="icon"></i><span>{{email}}</span>
+                        </a>
+                        <a href="tel:{{phone}}" class="social-link-item">
+                            <i data-lucide="phone" class="icon"></i><span>{{phone}}</span>
+                        </a>
+                        {{linksHtml}}
                     </div>
                 </section>
     
                 <section class="break-inside-avoid">
-                    <h3 class="font-bold text-cyan-600 tracking-wider uppercase text-sm border-b-2 border-cyan-500 pb-1 mb-4">Formação</h3>
+                    <h3 class="section-title">Formação</h3>
                     <div class="space-y-4">{{educationHtml}}</div>
                 </section>
     
                 <section class="break-inside-avoid">
-                    <h3 class="font-bold text-cyan-600 tracking-wider uppercase text-sm border-b-2 border-cyan-500 pb-1 mb-4">Competências</h3>
-                    {{skillsHtml}}
+                    <h3 class="section-title">Competências</h3>
+                    <div class="space-y-4">{{skillsHtml}}</div>
                 </section>
             </div>
         </div>
 
-        <div class="col-span-12 md:col-span-8">
+        <div class="col-span-12 md:col-span-8 pt-4">
              <section class="mb-10 break-inside-avoid">
-                <h2 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-4 tracking-wide">RESUMO PROFISSIONAL</h2>
+                <h2 class="main-section-title">Resumo Profissional</h2>
                 <p class="text-gray-700 leading-relaxed text-justify">{{summary}}</p>
             </section>
     
             <section class="break-inside-avoid">
-                <h2 class="text-xl font-bold text-gray-700 border-b-2 border-gray-300 pb-2 mb-4 tracking-wide">EXPERIÊNCIA PROFISSIONAL</h2>
-                <div class="space-y-4">{{experienceHtml}}</div>
+                <h2 class="main-section-title">Experiência Profissional</h2>
+                <div class="space-y-8">{{experienceHtml}}</div>
             </section>
         </div>
     </div>
