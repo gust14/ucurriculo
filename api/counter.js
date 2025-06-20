@@ -1,27 +1,38 @@
-// ucurriculo/api/counter.js
+import { createClient } from 'redis';
 
-import { kv } from '@vercel/kv';
+// O cliente é criado aqui fora para ser reutilizado entre as requisições,
+// o que é mais eficiente. A URL é lida automaticamente da variável de ambiente.
+const redisClient = createClient({
+    url: process.env.REDIS_URL
+});
 
-// Esta função 'handler' é a nossa API. Ela será executada nos servidores da Vercel.
+// Adiciona um "ouvinte" de erros para o caso de a conexão com o Redis cair.
+redisClient.on('error', (err) => {
+    console.error('Erro no Cliente Redis:', err);
+});
+
+// Conecta ao Redis. A Vercel gerencia o cache dessa conexão.
+// A conexão é feita apenas uma vez e reutilizada.
+await redisClient.connect();
+
 export default async function handler(request, response) {
-
-  try {
-    // Se a requisição for um 'POST', nós incrementamos o contador.
-    if (request.method === 'POST') {
-      // O comando 'incr' é a forma mais segura de somar 1, evitando erros.
-      const downloads = await kv.incr('downloads');
-      return response.status(200).json({ downloads });
+    try {
+        // Se a requisição for um 'POST', incrementamos o contador.
+        if (request.method === 'POST') {
+            // O comando 'incr' do node-redis para somar 1.
+            const downloads = await redisClient.incr('downloads');
+            return response.status(200).json({ downloads });
+        }
+        // Para qualquer outro tipo de requisição (como 'GET'), apenas lemos o valor.
+        else {
+            // O comando 'get' para buscar o valor.
+            const downloads = await redisClient.get('downloads');
+            // Se o contador nunca foi incrementado (chave não existe), o valor será 'null'.
+            // Nesse caso, retornamos 0.
+            return response.status(200).json({ downloads: Number(downloads) || 0 });
+        }
+    } catch (error) {
+        console.error('Erro na API do contador:', error);
+        return response.status(500).json({ error: 'Erro interno do servidor.' });
     }
-
-    // Para qualquer outro tipo de requisição (como 'GET'), nós apenas lemos o valor.
-    else {
-      const downloads = await kv.get('downloads');
-      // Se o contador nunca foi incrementado, ele pode ser nulo. Retornamos 0 nesse caso.
-      return response.status(200).json({ downloads: downloads || 0 });
-    }
-
-  } catch (error) {
-    // Se houver qualquer erro de conexão com o banco, retornamos um erro 500.
-    return response.status(500).json({ error: error.message });
-  }
 }
