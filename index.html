@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ucurriculo - Crie seu Currículo Incrível</title>
-    
-    <meta name="description" content="Cansado de templates complicados? Crie um currículo profissional e moderno em minutos com nossa jornada guiada. Simples, rápido e com resultado incrível. Comece agora!">
+
+    <meta name="description"
+        content="Cansado de templates complicados? Crie um currículo profissional e moderno em minutos com nossa jornada guiada. Simples, rápido e com resultado incrível. Comece agora!">
     <meta name="author" content="Ucurriculo">
 
     <meta property="og:title" content="Ucurriculo - Crie seu Currículo Incrível">
-    <meta property="og:description" content="Cansado de templates complicados? Crie um currículo profissional e moderno em minutos com nossa jornada guiada. Simples, rápido e com resultado incrível. Comece agora!">
-    <meta property="og:image" content="https://ucurriculo.vercel.app/image/ucurriculo-comp.png> <meta property="og:url" content="https://14web.vercel.app/"> <meta property="og:type" content="website">
+    <meta property="og:description"
+        content="Cansado de templates complicados? Crie um currículo profissional e moderno em minutos com nossa jornada guiada. Simples, rápido e com resultado incrível. Comece agora!">
+    <meta property="og:image" content="https://ucurriculo.vercel.app/image/ucurriculo-comp.png">
+    <meta property="og:url" content="https://14web.vercel.app/">
+    <meta property="og:type" content="website">
     <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://ucurriculo.vercel.app/"> <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ucurriculo.vercel.app/">
+    <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ucurriculo - Crie seu Currículo Incrível">
-    <meta name="twitter:description" content="Cansado de templates complicados? Crie um currículo profissional e moderno em minutos com nossa jornada guiada. Simples, rápido e com resultado incrível. Comece agora!">
-    <meta name="twitter:image" content="https://ucurriculo.vercel.app/image/ucurriculo-comp.png"> <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%230FA7E2'></rect><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='70' font-weight='bold' fill='white' font-family='sans-serif'>U</text></svg>">
+    <meta name="twitter:description"
+        content="Cansado de templates complicados? Crie um currículo profissional e moderno em minutos com nossa jornada guiada. Simples, rápido e com resultado incrível. Comece agora!">
+    <meta name="twitter:image" content="https://ucurriculo.vercel.app/image/ucurriculo-comp.png">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%230FA7E2'></rect><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='70' font-weight='bold' fill='white' font-family='sans-serif'>U</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="text-white">
 
     <div id="form-wizard" class="min-h-screen container mx-auto p-4 flex flex-col justify-center">
         <div class="text-center pt-8 pb-4">
             <h1 class="text-4xl font-extrabold inline-block cursor-pointer" onclick="window.location.reload();">
-                <span class="bg-[#0FA7E2] text-white rounded-lg px-3 py-1 mr-1">U</span><span class="beatache-gradient-text">curriculo</span>
+                <span class="bg-[#0FA7E2] text-white rounded-lg px-3 py-1 mr-1">U</span><span
+                    class="beatache-gradient-text">curriculo</span>
             </h1>
         </div>
-        
+
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Crie o Currículo Perfeito</h1>
             <p class="text-lg text-gray-400">Siga nossa jornada guiada para não esquecer de nada.</p>
         </div>
 
         <div class="w-full max-w-3xl mx-auto bg-gray-700 rounded-full h-2.5 mb-8">
-            <div id="progress-bar" class="beatache-button h-2.5 rounded-full progress-bar-fill" style="width: 25%"></div>
+            <div id="progress-bar" class="beatache-button h-2.5 rounded-full progress-bar-fill" style="width: 25%">
+            </div>
         </div>
 
         <div class="w-full max-w-3xl mx-auto bg-gray-800 p-4 md:p-8 rounded-2xl shadow-2xl">
@@ -49,41 +63,61 @@
                     <div>
                         <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">1. Informações Pessoais</h2>
                         <div class="space-y-4">
-                            <div class="relative"><input type="text" id="fullName" placeholder="Nome Completo" data-placeholder="Nome Completo" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></div>
-                            <div class="relative"><input type="email" id="email" placeholder="Email" data-placeholder="Email" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></div>
-                            <div class="relative"><input type="tel" id="phone" placeholder="Telefone (Ex: (11) 98765-4321)" data-placeholder="Telefone (Ex: (11) 98765-4321)" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></div>
-                            <div class="relative"><textarea id="summary" placeholder="Um breve resumo sobre você..." data-placeholder="Um breve resumo sobre você..." rows="4" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea></div>
-                             <div class="space-y-4 pt-2">
+                            <div class="relative"><input type="text" id="fullName" placeholder="Nome Completo"
+                                    data-placeholder="Nome Completo"
+                                    class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
+                            </div>
+                            <div class="relative"><input type="email" id="email" placeholder="Email"
+                                    data-placeholder="Email"
+                                    class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
+                            </div>
+                            <div class="relative"><input type="tel" id="phone"
+                                    placeholder="Telefone (Ex: (11) 98765-4321)"
+                                    data-placeholder="Telefone (Ex: (11) 98765-4321)"
+                                    class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none">
+                            </div>
+                            <div class="relative"><textarea id="summary" placeholder="Um breve resumo sobre você..."
+                                    data-placeholder="Um breve resumo sobre você..." rows="4"
+                                    class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                            </div>
+                            <div class="space-y-4 pt-2">
                                 <h3 class="text-lg font-semibold text-gray-300 -mb-2">Links (Opcional)</h3>
                                 <div id="links-container" class="space-y-3">
-                                    </div>
-                                <button id="add-link" type="button" class="text-cyan-400 hover:text-cyan-300 font-semibold text-sm">+ Adicionar outro link</button>
+                                </div>
+                                <button id="add-link" type="button"
+                                    class="text-cyan-400 hover:text-cyan-300 font-semibold text-sm">+ Adicionar outro
+                                    link</button>
                             </div>
                         </div>
                     </div>
                     <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
                         <div class="flex items-center mb-2">
-                           <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
-                           <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
+                            <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
                         </div>
-                        <p class="text-gray-300">Seu resumo é o "trailer" da sua carreira. Em 2-3 frases, destaque sua principal competência e seu objetivo profissional. Ex: "Designer de UX com 5 anos de experiência em apps mobile, buscando criar interfaces intuitivas na área de fintech."</p>
+                        <p class="text-gray-300">Seu resumo é o "trailer" da sua carreira. Em 2-3 frases, destaque sua
+                            principal competência e seu objetivo profissional. Ex: "Designer de UX com 5 anos de
+                            experiência em apps mobile, buscando criar interfaces intuitivas na área de fintech."</p>
                     </div>
                 </div>
             </div>
 
             <div id="step-2" class="form-step">
-                 <div class="grid md:grid-cols-2 gap-6">
+                <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">2. Experiência Profissional</h2>
                         <div id="experience-fields" class="space-y-4"></div>
-                         <button id="add-experience" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold">+ Adicionar outra experiência</button>
+                        <button id="add-experience" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold">+
+                            Adicionar outra experiência</button>
                     </div>
                     <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
                         <div class="flex items-center mb-2">
-                           <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
-                           <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
+                            <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
                         </div>
-                        <p class="text-gray-300">Use verbos de ação e quantifique seus resultados! Em vez de "Responsável por vendas", tente "Aumentei as vendas em 20% no primeiro trimestre através de..."</p>
+                        <p class="text-gray-300">Use verbos de ação e quantifique seus resultados! Em vez de
+                            "Responsável por vendas", tente "Aumentei as vendas em 20% no primeiro trimestre através
+                            de..."</p>
                     </div>
                 </div>
             </div>
@@ -93,14 +127,17 @@
                     <div>
                         <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">3. Formação Acadêmica</h2>
                         <div id="education-fields" class="space-y-4"></div>
-                        <button id="add-education" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold">+ Adicionar outra formação</button>
+                        <button id="add-education" class="mt-4 text-cyan-400 hover:text-cyan-300 font-semibold">+
+                            Adicionar outra formação</button>
                     </div>
-                     <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
+                    <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
                         <div class="flex items-center mb-2">
-                           <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
-                           <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
+                            <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
                         </div>
-                        <p class="text-gray-300">Comece pela sua formação mais recente. Se você tem ensino superior, não precisa incluir o ensino médio. Cursos e certificações relevantes podem vir aqui ou em uma seção separada.</p>
+                        <p class="text-gray-300">Comece pela sua formação mais recente. Se você tem ensino superior, não
+                            precisa incluir o ensino médio. Cursos e certificações relevantes podem vir aqui ou em uma
+                            seção separada.</p>
                     </div>
                 </div>
             </div>
@@ -111,33 +148,52 @@
                         <h2 class="text-2xl font-bold mb-4 beatache-gradient-text">4. Competências</h2>
                         <div class="space-y-6">
                             <div class="relative">
-                                <label for="skills-tools" class="block mb-2 text-lg font-medium text-gray-300">Ferramentas e Tecnologias</label>
-                                <textarea id="skills-tools" placeholder="Ex: JavaScript, React, Figma, Docker, AWS..." data-placeholder="Ex: JavaScript, React, Figma, Docker, AWS..." rows="4" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                                <label for="skills-tools"
+                                    class="block mb-2 text-lg font-medium text-gray-300">Ferramentas e
+                                    Tecnologias</label>
+                                <textarea id="skills-tools" placeholder="Ex: JavaScript, React, Figma, Docker, AWS..."
+                                    data-placeholder="Ex: JavaScript, React, Figma, Docker, AWS..." rows="4"
+                                    class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
                             </div>
                             <div class="relative">
-                                <label for="skills-interpersonal" class="block mb-2 text-lg font-medium text-gray-300">Habilidades Interpessoais</label>
-                                <textarea id="skills-interpersonal" placeholder="Ex: Comunicação, Liderança, Trabalho em Equipe, Resolução de Conflitos..." data-placeholder="Ex: Comunicação, Liderança, Trabalho em Equipe, Resolução de Conflitos..." rows="3" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                                <label for="skills-interpersonal"
+                                    class="block mb-2 text-lg font-medium text-gray-300">Habilidades
+                                    Interpessoais</label>
+                                <textarea id="skills-interpersonal"
+                                    placeholder="Ex: Comunicação, Liderança, Trabalho em Equipe, Resolução de Conflitos..."
+                                    data-placeholder="Ex: Comunicação, Liderança, Trabalho em Equipe, Resolução de Conflitos..."
+                                    rows="3"
+                                    class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
                             </div>
                             <div class="relative">
-                                <label for="skills-languages" class="block mb-2 text-lg font-medium text-gray-300">Idiomas</label>
-                                <textarea id="skills-languages" placeholder="Ex: Português (Nativo), Inglês (Fluente), Espanhol (Básico)..." data-placeholder="Ex: Português (Nativo), Inglês (Fluente), Espanhol (Básico)..." rows="2" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
+                                <label for="skills-languages"
+                                    class="block mb-2 text-lg font-medium text-gray-300">Idiomas</label>
+                                <textarea id="skills-languages"
+                                    placeholder="Ex: Português (Nativo), Inglês (Fluente), Espanhol (Básico)..."
+                                    data-placeholder="Ex: Português (Nativo), Inglês (Fluente), Espanhol (Básico)..."
+                                    rows="2"
+                                    class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:ring-2 focus:ring-cyan-400 outline-none"></textarea>
                             </div>
                         </div>
                     </div>
-                     <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
+                    <div class="bg-sky-900/50 p-6 rounded-lg border-l-4 border-sky-400">
                         <div class="flex items-center mb-2">
-                           <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
-                           <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
+                            <i data-lucide="lightbulb" class="w-6 h-6 text-sky-300 mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Dica de Ouro</h3>
                         </div>
-                        <p class="text-gray-300">Seja específico. Separe por vírgulas. Coloque as competências mais relevantes para a vaga que você busca no topo de cada categoria.</p>
+                        <p class="text-gray-300">Seja específico. Separe por vírgulas. Coloque as competências mais
+                            relevantes para a vaga que você busca no topo de cada categoria.</p>
                     </div>
                 </div>
             </div>
 
             <div class="mt-8 flex justify-between">
-                <button id="prev-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors">Anterior</button>
+                <button id="prev-btn"
+                    class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors">Anterior</button>
                 <button id="next-btn" class="beatache-button text-white font-bold py-2 px-6 rounded-lg">Próximo</button>
-                <button id="finish-btn" class="beatache-button hidden text-white font-bold py-2 px-6 rounded-lg">Finalizar e ver modelos</button>
+                <button id="finish-btn"
+                    class="beatache-button hidden text-white font-bold py-2 px-6 rounded-lg">Finalizar e ver
+                    modelos</button>
             </div>
         </div>
 
@@ -151,13 +207,16 @@
         <div class="text-center mt-10 mb-6">
             <p class="text-gray-400 mb-4">Gostou da ferramenta? Espalhe a notícia!</p>
             <div id="social-share" class="flex justify-center items-center gap-4">
-                <a href="https://ucurriculo.vercel.app/" data-social="linkedin" class="social-link" aria-label="Compartilhar no LinkedIn">
+                <a href="https://ucurriculo.vercel.app/" data-social="linkedin" class="social-link"
+                    aria-label="Compartilhar no LinkedIn">
                     <i data-lucide="linkedin" class="w-6 h-6"></i>
                 </a>
-                <a href="https://ucurriculo.vercel.app/" data-social="whatsapp" class="social-link" aria-label="Compartilhar no WhatsApp">
+                <a href="https://ucurriculo.vercel.app/" data-social="whatsapp" class="social-link"
+                    aria-label="Compartilhar no WhatsApp">
                     <i data-lucide="message-circle" class="w-6 h-6"></i>
                 </a>
-                <a href="https://ucurriculo.vercel.app/" data-social="facebook" class="social-link" aria-label="Compartilhar no Facebook">
+                <a href="https://ucurriculo.vercel.app/" data-social="facebook" class="social-link"
+                    aria-label="Compartilhar no Facebook">
                     <i data-lucide="facebook" class="w-6 h-6"></i>
                 </a>
             </div>
@@ -167,45 +226,62 @@
     <div id="template-section" class="hidden min-h-screen container mx-auto p-4">
         <div class="text-center pt-8 pb-4">
             <h1 class="text-4xl font-extrabold inline-block cursor-pointer" onclick="window.location.reload();">
-                <span class="bg-[#0FA7E2] text-white rounded-lg px-3 py-1 mr-1">U</span><span class="beatache-gradient-text">curriculo</span>
+                <span class="bg-[#0FA7E2] text-white rounded-lg px-3 py-1 mr-1">U</span><span
+                    class="beatache-gradient-text">curriculo</span>
             </h1>
         </div>
         <div class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Escolha seu Modelo Favorito</h1>
-            <p class="text-lg text-gray-400">Clique em um modelo para visualizar com seus dados. Gostou? É só baixar!</p>
+            <p class="text-lg text-gray-400">Clique em um modelo para visualizar com seus dados. Gostou? É só baixar!
+            </p>
         </div>
         <div class="flex flex-wrap justify-center gap-8 mb-8">
-            <div class="template-card cursor-pointer bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center w-48 h-64" data-template="moderno">
+            <div class="template-card cursor-pointer bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center w-48 h-64"
+                data-template="moderno">
                 <div class="flex-grow flex items-center justify-center">
                     <i data-lucide="layout-template" class="w-20 h-20 text-gray-500"></i>
                 </div>
                 <p class="text-center font-bold mt-2">Moderno</p>
             </div>
-            <div class="template-card cursor-pointer bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center w-48 h-64" data-template="criativo">
+            <div class="template-card cursor-pointer bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center w-48 h-64"
+                data-template="criativo">
                 <div class="flex-grow flex items-center justify-center">
-                     <i data-lucide="paintbrush" class="w-20 h-20 text-gray-500"></i>
+                    <i data-lucide="paintbrush" class="w-20 h-20 text-gray-500"></i>
                 </div>
                 <p class="text-center font-bold mt-2">Criativo</p>
             </div>
-            <div class="template-card cursor-pointer bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center w-48 h-64" data-template="minimalista">
+            <div class="template-card cursor-pointer bg-gray-800 p-4 rounded-lg flex flex-col items-center justify-center w-48 h-64"
+                data-template="minimalista">
                 <div class="flex-grow flex items-center justify-center">
-                     <i data-lucide="file-text" class="w-20 h-20 text-gray-500"></i>
+                    <i data-lucide="file-text" class="w-20 h-20 text-gray-500"></i>
                 </div>
                 <p class="text-center font-bold mt-2">Minimalista</p>
             </div>
         </div>
-        
+
         <div id="resume-preview-container" class="w-full max-w-4xl mx-auto">
-             <div class="flex justify-center md:justify-end mb-4 flex-wrap gap-2">
-                <button id="edit-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors">
+            <div class="flex justify-center mb-4 flex-wrap gap-2">
+                <button id="edit-btn"
+                    class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors">
                     <i data-lucide="edit" class="inline w-4 h-4 mr-2"></i>Voltar e Editar
                 </button>
-                <button id="download-btn" class="beatache-button text-white font-bold py-2 px-6 rounded-lg opacity-50 cursor-not-allowed" disabled>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="fullscreen-preview-modal" class="modal-overlay hidden">
+        <div class="modal-content fullscreen">
+            <div id="resume-fullscreen-content" class="w-full h-full overflow-auto bg-white rounded-lg p-4 md:p-8">
+            </div>
+            <div class="fullscreen-actions">
+                <button id="back-to-templates-btn"
+                    class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-lg transition-colors">
+                    <i data-lucide="arrow-left" class="inline w-4 h-4 mr-2"></i>Voltar aos Modelos
+                </button>
+                <button id="fullscreen-download-btn" class="beatache-button text-white font-bold py-2 px-6 rounded-lg">
                     <i data-lucide="download" class="inline w-4 h-4 mr-2"></i>Fazer Download
                 </button>
-            </div>
-            <div id="resume-preview-content" class="bg-gray-700 rounded-lg text-center text-gray-400 p-8 md:p-0">
-                Selecione um modelo acima para visualizar seu currículo.
             </div>
         </div>
     </div>
@@ -220,15 +296,21 @@
                     <i data-lucide="check-circle" class="text-teal-400 w-12 h-12"></i>
                 </div>
                 <h2 class="text-2xl font-bold mt-4">Currículo a caminho!</h2>
-                <p class="text-gray-300 mt-2">Parabéns por dar este passo importante na sua carreira. Se você está buscando o seu "SIM", acaba de ganhar mais um integrante na torcida para que ele chegue logo, logo. 🙏😊</p>
+                <p class="text-gray-300 mt-2">Parabéns por dar este passo importante na sua carreira. Se você está
+                    buscando o seu "SIM", acaba de ganhar mais um integrante na torcida para que ele chegue logo, logo.
+                    🙏😊</p>
             </div>
             <div class="mt-6 text-left">
                 <h3 class="text-lg font-semibold beatache-gradient-text">Dicas de Ouro para sua Entrevista:</h3>
                 <ul class="mt-2 space-y-2 text-gray-400 list-disc list-inside">
-                    <li><strong>Pesquise a fundo:</strong> Conheça a empresa, sua cultura, produtos e os desafios da vaga. Mostre que você fez a lição de casa.</li>
-                    <li><strong>Prepare sua história:</strong> Use a técnica STAR (Situação, Tarefa, Ação, Resultado) para descrever suas experiências. É uma forma clara de mostrar seu impacto.</li>
-                    <li><strong>Linguagem corporal:</strong> Mantenha contato visual, uma postura ereta e um aperto de mão firme. Isso transmite confiança.</li>
-                    <li><strong>Faça perguntas inteligentes:</strong> Prepare perguntas sobre a equipe, os desafios e o futuro da empresa. Isso mostra seu interesse genuíno.</li>
+                    <li><strong>Pesquise a fundo:</strong> Conheça a empresa, sua cultura, produtos e os desafios da
+                        vaga. Mostre que você fez a lição de casa.</li>
+                    <li><strong>Prepare sua história:</strong> Use a técnica STAR (Situação, Tarefa, Ação, Resultado)
+                        para descrever suas experiências. É uma forma clara de mostrar seu impacto.</li>
+                    <li><strong>Linguagem corporal:</b> Mantenha contato visual, uma postura ereta e um aperto de mão
+                            firme. Isso transmite confiança.</li>
+                    <li><strong>Faça perguntas inteligentes:</strong> Prepare perguntas sobre a equipe, os desafios e o
+                        futuro da empresa. Isso mostra seu interesse genuíno.</li>
                 </ul>
             </div>
         </div>
@@ -236,4 +318,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

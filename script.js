@@ -10,10 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const finishBtn = document.getElementById('finish-btn');
-    const editBtn = document.getElementById('edit-btn');
-    const downloadBtn = document.getElementById('download-btn');
-    const templateCards = document.querySelectorAll('.template-card');
-    const previewContent = document.getElementById('resume-preview-content');
+    const editBtn = document.getElementById('edit-btn'); // Botão "Voltar e Editar" da template-section
+    const resumePreviewContent = document.getElementById('resume-preview-content'); // A área de mensagem na template-section
     const linksContainer = document.getElementById('links-container');
     const addLinkBtn = document.getElementById('add-link');
     const experienceFields = document.getElementById('experience-fields');
@@ -25,10 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const socialShareContainer = document.getElementById('social-share');
     const resumeCounter = document.getElementById('resume-counter');
 
+    // Elementos DOM para o modal de visualização fullscreen
+    const fullscreenPreviewModal = document.getElementById('fullscreen-preview-modal');
+    const resumeFullscreenContent = document.getElementById('resume-fullscreen-content');
+    const backToTemplatesBtn = document.getElementById('back-to-templates-btn'); // Novo botão "Voltar aos Modelos"
+    const fullscreenDownloadBtn = document.getElementById('fullscreen-download-btn'); // Botão de download no modal
+    const templateCards = document.querySelectorAll('.template-card');
+
 
     // --- State Management ---
     let currentStep = 1;
     const totalSteps = steps.length;
+    let selectedTemplate = null; // Para guardar o template selecionado para download
     const resumeData = {
         personal: {
             links: []
@@ -267,26 +273,55 @@ document.addEventListener('DOMContentLoaded', () => {
         saveData();
         formWizard.classList.add('hidden');
         templateSection.classList.remove('hidden');
+        selectedTemplate = null; // Redefinir para forçar a escolha do template na seção de modelos
+        // Exibir a mensagem inicial na template-section
+        resumePreviewContent.innerHTML = 'Selecione um modelo acima para visualizar seu currículo.';
     });
 
+    // Botão "Voltar e Editar" da tela de seleção de modelos
     editBtn.addEventListener('click', () => {
         templateSection.classList.add('hidden');
         formWizard.classList.remove('hidden');
-        previewContent.innerHTML = '<div class="p-8 flex items-center justify-center text-gray-400 h-full">Selecione um modelo acima para visualizar seu currículo.</div>';
-        downloadBtn.disabled = true;
-        downloadBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        resumePreviewContent.innerHTML = ''; // Limpar mensagem na template-section
         templateCards.forEach(c => c.classList.remove('selected'));
+        selectedTemplate = null; // Reiniciar template selecionado
     });
 
-    // --- Template Rendering ---
+    // --- Template Rendering (Updated for Fullscreen Preview) ---
     templateCards.forEach(card => {
-        card.addEventListener('click', () => {
+        card.addEventListener('click', async () => {
             templateCards.forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
-            const templateName = card.dataset.template;
-            renderPreview(templateName);
-            downloadBtn.disabled = false;
-            downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            selectedTemplate = card.dataset.template; // Armazena o template selecionado
+
+            // Exibir o modal de visualização em tela cheia
+            fullscreenPreviewModal.classList.remove('hidden');
+            resumeFullscreenContent.innerHTML = '<div class="flex items-center justify-center h-full text-gray-400">Carregando preview...</div>';
+            lucide.createIcons(); // Para os ícones de carregamento, se houver
+
+            try {
+                let templateHtml = await getTemplateHtml(selectedTemplate);
+                const { personal, experience, education, skills } = resumeData;
+
+                templateHtml = templateHtml
+                    .replace(/{{fullName}}/g, personal.fullName || 'Seu Nome Aqui')
+                    .replace(/{{email}}/g, personal.email || 'seu.email@dominio.com')
+                    .replace(/{{phone}}/g, personal.phone || '(00) 12345-6789')
+                    .replace(/{{summary}}/g, (personal.summary || 'Adicione um resumo profissional conciso sobre suas qualificações e objetivos.').replace(/\n/g, '<br>'))
+                    .replace('{{linksHtml}}', generateLinksHtml(personal.links))
+                    .replace('{{skillsHtml}}', generateSkillsHtml(skills))
+                    .replace('{{experienceHtml}}', generateExperienceHtml(experience))
+                    .replace('{{educationHtml}}', generateEducationHtml(education));
+
+                resumeFullscreenContent.innerHTML = templateHtml;
+                const previewEl = resumeFullscreenContent.querySelector('.resume-preview');
+                if (previewEl) previewEl.classList.add(selectedTemplate); // Adiciona a classe do template para estilos específicos
+
+                lucide.createIcons({ nodes: resumeFullscreenContent.querySelectorAll('.icon') }); // Recriar ícones para o conteúdo do preview
+            } catch (error) {
+                console.error("Erro ao renderizar o preview em tela cheia:", error);
+                resumeFullscreenContent.innerHTML = `<p class="text-red-400 p-8">Erro ao carregar o preview. Verifique o console para mais detalhes.</p>`;
+            }
         });
     });
     
@@ -359,13 +394,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }).join('');
     }
 
+    async function getTemplateHtml(template) {
+        const response = await fetch(`templates/${template}.html`);
+        if (!response.ok) throw new Error(`Template não encontrado: ${template}.html`);
+        return await response.text();
+    }
 
-    async function renderPreview(template) {
+
+    // --- PDF Download & Modal ---
+    fullscreenDownloadBtn.addEventListener('click', async () => {
+        if (!selectedTemplate) {
+            alert("Nenhum modelo selecionado para download.");
+            return;
+        }
+        
+        // Agora, o HTML é gerado no momento do download, não antes.
         try {
-            const response = await fetch(`templates/${template}.html`);
-            if (!response.ok) throw new Error(`Template não encontrado: ${template}.html`);
-            let templateHtml = await response.text();
-            
+            let templateHtml = await getTemplateHtml(selectedTemplate);
             const { personal, experience, education, skills } = resumeData;
 
             templateHtml = templateHtml
@@ -378,51 +423,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 .replace('{{experienceHtml}}', generateExperienceHtml(experience))
                 .replace('{{educationHtml}}', generateEducationHtml(education));
 
-            previewContent.innerHTML = templateHtml;
-            const previewEl = previewContent.querySelector('.resume-preview');
-            if (previewEl) previewEl.classList.add(template);
+            // Para o download, precisamos de um elemento DOM temporário para html2pdf
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = templateHtml;
+            const content = tempDiv.querySelector('.resume-preview');
+            if (!content) {
+                console.error("Erro: Conteúdo do currículo não encontrado no template.");
+                alert("Ocorreu um erro ao gerar o PDF. Conteúdo do template inválido.");
+                return;
+            }
 
-            lucide.createIcons();
+            const userName = (resumeData.personal.fullName || 'Usuario').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+            document.body.classList.add('pdf-generating');
+        
+            const options = {
+                margin: 0,
+                filename: `ucurriculo_${userName}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    dpi: 300,
+                    useCORS: true,
+                    letterRendering: true,
+                    scrollY: 0 
+                },
+                jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'legacy'], avoid: '.break-inside-avoid' }
+            };
+        
+            html2pdf().from(content).set(options).save().then(() => {
+                document.body.classList.remove('pdf-generating');
+                showSuccessModal();
+                updateDownloadCount();
+            }).catch(err => {
+                document.body.classList.remove('pdf-generating');
+                console.error("Erro ao gerar o PDF:", err);
+                alert("Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.");
+            });
+
         } catch (error) {
-            console.error("Erro ao renderizar o preview:", error);
-            previewContent.innerHTML = `<p class="text-red-400 p-8">Erro ao carregar o preview. Verifique o console para mais detalhes.</p>`;
+            console.error("Erro ao carregar o template para download:", error);
+            alert("Ocorreu um erro ao preparar o currículo para download. Tente novamente mais tarde.");
         }
-    }
-
-    // --- PDF Download & Modal ---
-    downloadBtn.addEventListener('click', () => {
-        if (downloadBtn.disabled) return;
-        const content = previewContent.querySelector('.resume-preview');
-        if (!content) return;
-        const userName = (resumeData.personal.fullName || 'Usuario').replace(/[^a-z0-9]/gi, '_').toLowerCase();
-    
-        document.body.classList.add('pdf-generating');
-    
-        const options = {
-            margin: 0,
-            filename: `ucurriculo_${userName}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: {
-                scale: 2,
-                dpi: 300,
-                useCORS: true,
-                letterRendering: true,
-                scrollY: 0 
-            },
-            jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' },
-            pagebreak: { mode: ['css', 'legacy'], avoid: '.break-inside-avoid' }
-        };
-    
-        html2pdf().from(content).set(options).save().then(() => {
-            document.body.classList.remove('pdf-generating');
-            showSuccessModal();
-            updateDownloadCount();
-        }).catch(err => {
-            document.body.classList.remove('pdf-generating');
-            console.error("Erro ao gerar o PDF:", err);
-            alert("Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.");
-        });
     });
+
+    // NOVO EVENT LISTENER: Botão "Voltar aos Modelos" no modal fullscreen
+    backToTemplatesBtn.addEventListener('click', () => {
+        fullscreenPreviewModal.classList.add('hidden'); // Esconde o modal fullscreen
+        // Não precisa mostrar formWizard, a templateSection já está visível
+        templateCards.forEach(c => c.classList.remove('selected')); // Desseleciona os cartões
+        selectedTemplate = null; // Reinicia o template selecionado
+        resumePreviewContent.innerHTML = 'Selecione um modelo acima para visualizar seu currículo.'; // Reseta a mensagem na template-section
+    });
+
 
     function showSuccessModal() {
         lucide.createIcons();
