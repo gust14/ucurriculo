@@ -10,32 +10,28 @@
     </header>
 
     <main class="p-12 main-content">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12">
-            <div class="md:col-span-2">
-                <section class="mb-12 break-inside-avoid">
-                    <h2 class="section-title mb-6">Resumo</h2>
-                    <p class="text-gray-700 leading-relaxed text-justify">{{summary}}</p>
-                </section>
-                
-                <section class="break-inside-avoid">
-                    <h2 class="section-title mb-6">Experiência</h2>
-                    <div class="timeline space-y-12">
-                        {{experienceHtml}}
-                    </div>
-                </section>
-            </div>
+        <div class="grid grid-cols-1 gap-x-12">
+            <section class="mb-12 break-inside-avoid">
+                <h2 class="section-title mb-6">Resumo</h2>
+                <p class="text-gray-700 leading-relaxed text-justify">{{summary}}</p>
+            </section>
             
-            <div class="md:col-span-1 mt-10 md:mt-0 sidebar">
-                <section class="mb-10 break-inside-avoid">
-                    <h3 class="section-title mb-6">Competências</h3>
-                    <div class="space-y-5">{{skillsHtml}}</div>
-                </section>
-                
-                <section class="break-inside-avoid">
-                    <h3 class="section-title mb-6">Formação</h3>
-                    <div class="space-y-6">{{educationHtml}}</div>
-                </section>
-            </div>
+            <section class="break-inside-avoid mb-12">
+                <h2 class="section-title mb-6">Experiência</h2>
+                <div class="timeline space-y-12">
+                    {{experienceHtml}}
+                </div>
+            </section>
+
+            <section class="break-inside-avoid mb-12">
+                <h2 class="section-title mb-6">Formação</h2>
+                <div class="space-y-6">{{educationHtml}}</div>
+            </section>
+
+            <section class="break-inside-avoid">
+                <h2 class="section-title mb-6">Competências</h2>
+                <div class="space-y-5">{{skillsHtml}}</div>
+            </section>
         </div>
     </main>
 </div>

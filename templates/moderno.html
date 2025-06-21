@@ -1,47 +1,38 @@
-<div class="resume-preview moderno font-sans text-gray-800">
-    <div class="grid grid-cols-12 gap-10 p-12">
-        <div class="col-span-12 md:col-span-4 left-column">
-            <header class="mb-12">
-                <h1 class="main-title">{{fullName}}</h1>
-                
-            </header>
-
-            <div class="space-y-10">
-                <section class="break-inside-avoid">
-                    <h3 class="section-title">Contato</h3>
-                    <div class="space-y-3 text-sm" id="contact-info">
-                        <a href="mailto:{{email}}" class="social-link-item">
-                            <i data-lucide="mail" class="icon"></i><span>{{email}}</span>
-                        </a>
-                        <a href="tel:{{phone}}" class="social-link-item">
-                            <i data-lucide="phone" class="icon"></i><span>{{phone}}</span>
-                        </a>
-                        {{linksHtml}}
-                    </div>
-                </section>
-    
-                <section class="break-inside-avoid">
-                    <h3 class="section-title">Formação</h3>
-                    <div class="space-y-4">{{educationHtml}}</div>
-                </section>
-    
-                <section class="break-inside-avoid">
-                    <h3 class="section-title">Competências</h3>
-                    <div class="space-y-4">{{skillsHtml}}</div>
-                </section>
+<div class="resume-preview moderno font-sans text-gray-800 p-12">
+    <div>
+        <header class="mb-12">
+            <h1 class="main-title">{{fullName}}</h1>
+            <div class="space-y-3 text-sm mt-4">
+                <a href="mailto:{{email}}" class="social-link-item">
+                    <i data-lucide="mail" class="icon"></i><span>{{email}}</span>
+                </a>
+                <a href="tel:{{phone}}" class="social-link-item">
+                    <i data-lucide="phone" class="icon"></i><span>{{phone}}</span>
+                </a>
+                {{linksHtml}}
             </div>
-        </div>
+        </header>
 
-        <div class="col-span-12 md:col-span-8 pt-4">
-             <section class="mb-10 break-inside-avoid">
+        <div class="space-y-10">
+            <section class="mb-10 break-inside-avoid">
                 <h2 class="main-section-title">Resumo Profissional</h2>
                 <p class="text-gray-700 leading-relaxed text-justify">{{summary}}</p>
             </section>
-    
-            <section class="break-inside-avoid">
+
+            <section class="break-inside-avoid mb-10">
                 <h2 class="main-section-title">Experiência Profissional</h2>
                 <div class="space-y-8">{{experienceHtml}}</div>
             </section>
-        </div>
+
+            <section class="break-inside-avoid mb-10">
+                <h2 class="main-section-title">Formação Acadêmica</h2>
+                <div class="space-y-4">{{educationHtml}}</div>
+            </section>
+            
+            <section class="break-inside-avoid">
+                <h2 class="main-section-title">Competências</h2>
+                <div class="space-y-4">{{skillsHtml}}</div>
+            </section>
+            </div>
     </div>
 </div>
